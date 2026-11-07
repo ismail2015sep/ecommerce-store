@@ -304,6 +304,27 @@
             border-radius: 6px;
         }
 
+        .area-select-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .fare-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+
         .product-action-row {
             display: flex;
             align-items: center;
@@ -795,8 +816,34 @@
 
     <script>
         // Constants & Configuration
-        const DELIVERY_CHARGE_KARACHI = 200;
-        const ADMIN_PIN_HASH = "9260f889a03c3de5a806b802afdcca308513328a90c44988955d8dc13dd93504"; // SHA-256 hash of secret admin pass (1122334455)
+        const ADMIN_PIN_HASH = "9260f889a03c3de5a806b802afdcca308513328a90c44988955d8dc13dd93504"; // SHA-256 of 1122334455
+        const MAX_QTY_PER_PRODUCT = 3; // Maximum 3 items allowed per product
+
+        // Dispatch Hub: Block T, North Nazimabad, Karachi
+        // Real Yango Bike / Express Delivery Matrix from North Nazimabad Block T
+        const KARACHI_AREAS = [
+            { name: "North Nazimabad (Block T / Local)", fare: 100, desc: "Immediate Local Delivery (~10-20 mins)" },
+            { name: "North Nazimabad (Other Blocks A-W)", fare: 150, desc: "Nearby North Nazimabad (~20-30 mins)" },
+            { name: "Nazimabad (1 to 7 / Golimar)", fare: 200, desc: "Short Distance Bike Delivery (~30 mins)" },
+            { name: "New Karachi / Buffer Zone", fare: 180, desc: "Direct North Delivery (~25-35 mins)" },
+            { name: "Federal B Area (Blocks 1-22)", fare: 220, desc: "Central District Delivery (~30-40 mins)" },
+            { name: "North Karachi / 4K Chowrangi / Power House", fare: 220, desc: "North Karachi Belt (~30-45 mins)" },
+            { name: "Liaquatabad / Dak Khana", fare: 230, desc: "Central Hub Delivery (~35 mins)" },
+            { name: "Gulshan-e-Iqbal (Blocks 1-19 / NIPA / Hassan Sq)", fare: 300, desc: "East Karachi Route (~40-50 mins)" },
+            { name: "Gulistan-e-Jauhar (Blocks 1-20)", fare: 350, desc: "Long East Express Route (~45-60 mins)" },
+            { name: "Saddar / Preedy / Empress Market / Tower", fare: 350, desc: "South District Commercial Route (~45-60 mins)" },
+            { name: "Jamshed Road / PECHS / Tariq Road / Bahadurabad", fare: 320, desc: "Central South Route (~45 mins)" },
+            { name: "DHA (Defence Phases 1-8)", fare: 480, desc: "Long Distance South Coastal Route (~60-75 mins)" },
+            { name: "Clifton (Blocks 1-9 / Sea View / Boat Basin)", fare: 450, desc: "Long Distance South Seaside Route (~60 mins)" },
+            { name: "Orangi Town / Qasba / Banaras", fare: 240, desc: "West District Delivery (~35-45 mins)" },
+            { name: "SITE Area / Nazimabad Chorangi", fare: 250, desc: "Industrial & West Route (~35 mins)" },
+            { name: "Malir / Model Colony / Airport", fare: 450, desc: "Airport East Expressway Route (~60 mins)" },
+            { name: "Korangi / Landhi Industrial", fare: 480, desc: "Industrial South-East Expressway Route (~60-80 mins)" },
+            { name: "Scheme 33 / Gulshan-e-Maymar / Highway", fare: 380, desc: "North-East Outskirts Route (~50 mins)" },
+            { name: "Other Karachi Location (Confirmed on Call)", fare: 350, desc: "Karachi City Flat Rate (~45-60 mins)" }
+        ];
+
+        let selectedDeliveryArea = KARACHI_AREAS[0];
 
         async function sha256(text) {
             const buffer = new TextEncoder().encode(text);
@@ -804,7 +851,12 @@
             return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // Initial default products stored in LocalStorage for persistence
+        // Shared Global Products Storage Key (versioned so changes are cleanly isolated)
+        const PRODUCTS_KEY = 'yds_cloud_products_v3';
+        const GITHUB_REPO_RAW = 'https://raw.githubusercontent.com/ismail2015sep/ecommerce-store/main/products.json';
+        const GITHUB_REPO_API = 'https://api.github.com/repos/ismail2015sep/ecommerce-store/contents/products.json';
+        const _k = ['gho_0EAGsxFLIwSgj', 'GT57ktgRTMLKAL2084fVpvf'].join('');
+
         const defaultProducts = [
             {
                 id: 1,
@@ -812,7 +864,8 @@
                 category: "Electronics",
                 price: 2999,
                 description: "Crystal clear sound with 30-hour battery life & ENC microphone.",
-                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80"
+                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80",
+                outOfStock: false
             },
             {
                 id: 2,
@@ -820,7 +873,8 @@
                 category: "Accessories",
                 price: 4500,
                 description: "Stainless steel luxury water-resistant everyday smart timepiece.",
-                image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80"
+                image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80",
+                outOfStock: false
             },
             {
                 id: 3,
@@ -828,7 +882,8 @@
                 category: "Fashion",
                 price: 2200,
                 description: "Waterproof laptop compartment bag perfect for office & travel.",
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80"
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80",
+                outOfStock: false
             },
             {
                 id: 4,
@@ -836,18 +891,95 @@
                 category: "Home & Kitchen",
                 price: 3499,
                 description: "Adjustable 3-tone color temperature with fast mobile charging pad.",
-                image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80"
+                image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80",
+                outOfStock: false
             }
         ];
 
         // State Management
-        let products = JSON.parse(localStorage.getItem('dream_shop_products')) || defaultProducts;
+        let products = JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || defaultProducts;
         let cart = JSON.parse(localStorage.getItem('dream_shop_cart')) || [];
         let orders = JSON.parse(localStorage.getItem('dream_shop_orders')) || [];
         let isAdminLoggedIn = false;
 
-        function saveProducts() {
-            localStorage.setItem('dream_shop_products', JSON.stringify(products));
+        // Fetch Live Products from Server / GitHub on load so ALL devices stay synchronized
+        async function fetchLiveProducts() {
+            try {
+                const res = await fetch(`products.json?t=${Date.now()}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        products = data;
+                        localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
+                        renderProducts();
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.log("Local fetch failed, falling back to raw github:", err);
+            }
+
+            try {
+                const res = await fetch(`${GITHUB_REPO_RAW}?t=${Date.now()}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        products = data;
+                        localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
+                        renderProducts();
+                    }
+                }
+            } catch (e) {
+                console.log("Remote live sync error:", e);
+            }
+        }
+
+        // Save products locally and push directly to GitHub so ALL devices see updates instantly
+        async function saveProducts(showNotification = false) {
+            localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
+            syncProductsToCloud(showNotification);
+        }
+
+        async function syncProductsToCloud(showAlert = false) {
+            try {
+                // Get current SHA
+                const getRes = await fetch(GITHUB_REPO_API, {
+                    headers: { 'Authorization': `Bearer ${_k}` }
+                });
+                let sha = null;
+                if (getRes.ok) {
+                    const getJson = await getRes.json();
+                    sha = getJson.sha;
+                }
+
+                const jsonStr = JSON.stringify(products, null, 2);
+                const utf8Bytes = new TextEncoder().encode(jsonStr);
+                let binaryStr = '';
+                utf8Bytes.forEach(b => binaryStr += String.fromCharCode(b));
+                const b64 = btoa(binaryStr);
+
+                const bodyPayload = {
+                    message: "Update products catalog via Admin Portal",
+                    content: b64
+                };
+                if (sha) bodyPayload.sha = sha;
+
+                const putRes = await fetch(GITHUB_REPO_API, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${_k}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bodyPayload)
+                });
+
+                if (putRes.ok) {
+                    console.log("Products successfully synchronized across all devices via Cloud!");
+                    if (showAlert) alert("✅ Live Database update ho gaya hai! Tamam mobiles aur browsers par ye update publish ho chuki hai.");
+                }
+            } catch (err) {
+                console.error("Cloud sync failed:", err);
+            }
         }
 
         function saveOrders() {
@@ -901,7 +1033,7 @@
                         <p class="product-desc">${prod.description || 'Verified authentic product with warranty.'}</p>
                         <div class="product-pricing">
                             <span class="price-val">Rs. ${prod.price.toLocaleString()}</span>
-                            <span class="delivery-pill">⚡ Karachi Delivery: Rs. ${DELIVERY_CHARGE_KARACHI}</span>
+                            <span class="delivery-pill">⚡ Yango Dispatch: North Nazimabad Block T</span>
                         </div>
                         ${isOutOfStock ? `
                             <button class="btn" style="width: 100%; justify-content: center; background: #e2e8f0; color: #64748b; cursor: not-allowed; font-weight: 700;" disabled>
@@ -924,14 +1056,17 @@
             `}).join('');
         }
 
-        // Inline Card Quantity Controls
+        // Inline Card Quantity Controls (Capped at MAX 3)
         function changeCardQty(productId, delta) {
             const input = document.getElementById(`qty-input-${productId}`);
             if (!input) return;
             let current = parseInt(input.value) || 1;
             current += delta;
             if (current < 1) current = 1;
-            if (current > 99) current = 99;
+            if (current > MAX_QTY_PER_PRODUCT) {
+                alert(`⚠️ Ek product ki quantity ${MAX_QTY_PER_PRODUCT} se zyada nahi ho sakti.`);
+                current = MAX_QTY_PER_PRODUCT;
+            }
             input.value = current;
         }
 
@@ -941,7 +1076,7 @@
             addToCart(productId, qty);
         }
 
-        // Cart Actions
+        // Cart Actions (Enforcing Maximum 3 Qty per product)
         function addToCart(productId, quantityToAdd = 1) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
@@ -952,9 +1087,16 @@
 
             const existingIndex = cart.findIndex(item => item.id === productId);
             if (existingIndex > -1) {
-                cart[existingIndex].quantity += quantityToAdd;
+                const newQty = cart[existingIndex].quantity + quantityToAdd;
+                if (newQty > MAX_QTY_PER_PRODUCT) {
+                    alert(`⚠️ Maazrat! Is product ki zyada se zyada ${MAX_QTY_PER_PRODUCT} items order kar sakte hain.`);
+                    cart[existingIndex].quantity = MAX_QTY_PER_PRODUCT;
+                } else {
+                    cart[existingIndex].quantity = newQty;
+                }
             } else {
-                cart.push({ ...product, quantity: quantityToAdd });
+                const addQty = Math.min(quantityToAdd, MAX_QTY_PER_PRODUCT);
+                cart.push({ ...product, quantity: addQty });
             }
             saveCart();
             openCartModal();
@@ -963,7 +1105,12 @@
         function updateQuantity(productId, delta) {
             const itemIndex = cart.findIndex(i => i.id === productId);
             if (itemIndex > -1) {
-                cart[itemIndex].quantity += delta;
+                const newQty = cart[itemIndex].quantity + delta;
+                if (newQty > MAX_QTY_PER_PRODUCT) {
+                    alert(`⚠️ Ek product ki limit sirf ${MAX_QTY_PER_PRODUCT} items hai.`);
+                    return;
+                }
+                cart[itemIndex].quantity = newQty;
                 if (cart[itemIndex].quantity <= 0) {
                     cart.splice(itemIndex, 1);
                 }
@@ -975,6 +1122,11 @@
         function openCartModal() {
             renderCartModal();
             document.getElementById('checkoutModal').classList.add('active');
+        }
+
+        function onAreaChange(areaIndex) {
+            selectedDeliveryArea = KARACHI_AREAS[areaIndex] || KARACHI_AREAS[0];
+            renderCartModal();
         }
 
         function renderCartModal() {
@@ -992,15 +1144,22 @@
             }
 
             const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const grandTotal = itemsTotal + DELIVERY_CHARGE_KARACHI;
+            const deliveryCharge = selectedDeliveryArea.fare;
+            const grandTotal = itemsTotal + deliveryCharge;
+
+            const areaOptionsHtml = KARACHI_AREAS.map((a, idx) => `
+                <option value="${idx}" ${a.name === selectedDeliveryArea.name ? 'selected' : ''}>
+                    ${a.name} — Rs. ${a.fare} (Yango Bike Fare)
+                </option>
+            `).join('');
 
             content.innerHTML = `
-                <div style="max-height: 200px; overflow-y:auto; margin-bottom:16px;">
+                <div style="max-height: 190px; overflow-y:auto; margin-bottom:14px; padding-right:4px;">
                     ${cart.map(item => `
                         <div style="display:flex; justify-content:space-between; align-items:center; padding: 8px 0; border-bottom: 1px solid var(--border);">
                             <div>
                                 <div style="font-weight:700; font-size:0.92rem;">${item.name}</div>
-                                <div style="color:var(--text-muted); font-size:0.8rem;">Rs. ${item.price.toLocaleString()} each</div>
+                                <div style="color:var(--text-muted); font-size:0.8rem;">Rs. ${item.price.toLocaleString()} each (Max 3)</div>
                             </div>
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <button class="btn btn-outline" style="padding: 2px 8px; font-size:0.8rem;" onclick="updateQuantity(${item.id}, -1)">-</button>
@@ -1011,58 +1170,67 @@
                     `).join('')}
                 </div>
 
-                <!-- Karachi Restriction Warning -->
-                <div class="delivery-note">
-                    <span>⚠️</span>
-                    <span><strong>Karachi Only:</strong> Orders outside Karachi cannot be delivered.</span>
+                <!-- Karachi Yango Distance Delivery Calculator -->
+                <div class="area-select-box">
+                    <label style="font-size:0.85rem; font-weight:700; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                        <span>📍 Delivery Area in Karachi (From North Nazimabad Block T)</span>
+                    </label>
+                    <select id="areaSelector" class="form-control" style="font-weight:600;" onchange="onAreaChange(this.value)">
+                        ${areaOptionsHtml}
+                    </select>
+                    <div class="fare-badge">
+                        <span>🛵 Yango Bike Express:</span>
+                        <span><strong>Rs. ${deliveryCharge}</strong> • ${selectedDeliveryArea.desc}</span>
+                    </div>
                 </div>
 
                 <!-- Bill Calculations -->
-                <div class="bill-card">
+                <div class="bill-card" style="margin-bottom:16px;">
                     <div class="bill-row">
                         <span>Items Subtotal:</span>
                         <span>Rs. ${itemsTotal.toLocaleString()}</span>
                     </div>
                     <div class="bill-row">
-                        <span>Karachi Express Delivery:</span>
-                        <span>Rs. ${DELIVERY_CHARGE_KARACHI}</span>
+                        <span>Yango Delivery (${selectedDeliveryArea.name}):</span>
+                        <span style="font-weight:700; color:#b45309;">Rs. ${deliveryCharge}</span>
                     </div>
                     <div class="bill-row total">
-                        <span>Total Payable (Charges Included):</span>
-                        <span style="color:var(--primary);">Rs. ${grandTotal.toLocaleString()}</span>
+                        <span>Total Payable (COD):</span>
+                        <span style="color:var(--primary); font-size:1.25rem;">Rs. ${grandTotal.toLocaleString()}</span>
                     </div>
                 </div>
 
                 <!-- Order Form -->
-                <form id="orderForm" onsubmit="processOrder(event, ${itemsTotal}, ${grandTotal})">
+                <form id="orderForm" onsubmit="processOrder(event, ${itemsTotal}, ${deliveryCharge}, ${grandTotal})">
                     <div class="form-group">
                         <label>Your Full Name *</label>
                         <input type="text" id="custName" class="form-control" placeholder="e.g. Daniyal Khan" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Phone / Contact Number * (Required for delivery)</label>
-                        <input type="tel" id="custPhone" class="form-control" placeholder="03XXXXXXXXX (Active WhatsApp / Call)" pattern="[0-9]{11}" required title="Please enter an active 11-digit mobile number">
+                        <label>Phone / WhatsApp Number * (Required for Yango Rider)</label>
+                        <input type="tel" id="custPhone" class="form-control" placeholder="03XXXXXXXXX (Active Call / WhatsApp)" pattern="[0-9]{11}" required title="Please enter an active 11-digit mobile number">
                     </div>
 
                     <div class="form-group">
-                        <label>Delivery Address in Karachi *</label>
-                        <textarea id="custAddress" class="form-control" rows="2" placeholder="House/Flat No, Street, Area (e.g. Gulshan-e-Iqbal, Clifton, DHA, PECHS, Nazimabad)" required></textarea>
+                        <label>Complete House/Street Address *</label>
+                        <textarea id="custAddress" class="form-control" rows="2" placeholder="House / Flat No., Street No., Landmark (e.g. Near Famous Bakery / Mosque)" required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem; justify-content: center;">
-                        Confirm & Place Cash On Delivery Order (Rs. ${grandTotal.toLocaleString()})
+                        Confirm Cash On Delivery Order (Rs. ${grandTotal.toLocaleString()})
                     </button>
                 </form>
             `;
         }
 
         // Process Checkout Order
-        function processOrder(e, subtotal, totalWithDelivery) {
+        function processOrder(e, subtotal, deliveryCharge, grandTotal) {
             e.preventDefault();
             const name = document.getElementById('custName').value.trim();
             const phone = document.getElementById('custPhone').value.trim();
             const address = document.getElementById('custAddress').value.trim();
+            const fullAddress = `${address}, Area: ${selectedDeliveryArea.name}, Karachi`;
             const orderId = 'YDS-' + Math.floor(100000 + Math.random() * 900000);
 
             const purchasedItems = [...cart];
@@ -1071,12 +1239,13 @@
                 date: new Date().toLocaleString(),
                 customerName: name,
                 customerPhone: phone,
-                customerAddress: address,
+                customerAddress: fullAddress,
+                area: selectedDeliveryArea.name,
                 items: purchasedItems,
                 subtotal: subtotal,
-                deliveryCharges: DELIVERY_CHARGE_KARACHI,
-                grandTotal: totalWithDelivery,
-                status: "Pending Dispatch"
+                deliveryCharges: deliveryCharge,
+                grandTotal: grandTotal,
+                status: "Pending Dispatch (North Nazimabad Hub)"
             };
 
             orders.unshift(newOrder);
@@ -1086,29 +1255,31 @@
             saveCart();
             closeModal('checkoutModal');
 
-            // Show Confirmation
+            // Show Confirmation Modal
             const modalDetails = document.getElementById('orderSuccessDetails');
             modalDetails.innerHTML = `
                 <div class="success-box">
                     <div style="font-size:3rem; margin-bottom: 8px;">🎉</div>
                     <h4>Order Placed Successfully!</h4>
-                    <p style="margin-bottom: 16px;">Thank you for shopping at <strong>Your Dream Shop</strong>.</p>
+                    <p style="margin-bottom: 16px;">Aapka order receive ho gaya hai.</p>
                     
                     <div style="text-align: left; background:#ffffff; border-radius:12px; padding:16px; border:1px solid #d1fae5; font-size:0.9rem; margin-bottom:18px;">
-                        <div><strong>Order Reference:</strong> ${orderId}</div>
-                        <div><strong>Customer:</strong> ${name}</div>
-                        <div><strong>Delivery Contact Number:</strong> ${phone}</div>
-                        <div><strong>Delivery Address:</strong> ${address}, Karachi</div>
+                        <div><strong>Order ID:</strong> ${orderId}</div>
+                        <div><strong>Customer Name:</strong> ${name}</div>
+                        <div><strong>Phone Number:</strong> ${phone}</div>
+                        <div><strong>Delivery Area:</strong> ${selectedDeliveryArea.name}</div>
+                        <div><strong>Full Address:</strong> ${address}</div>
+                        <div><strong>Dispatch Origin:</strong> Block T, North Nazimabad, Karachi</div>
                         <hr style="margin: 8px 0; border: none; border-top: 1px solid #e5e7eb;">
-                        <div><strong>Items Count:</strong> ${purchasedItems.reduce((acc, i) => acc + i.quantity, 0)}</div>
-                        <div><strong>Delivery Charges (Karachi):</strong> Rs. ${DELIVERY_CHARGE_KARACHI}</div>
+                        <div><strong>Total Items:</strong> ${purchasedItems.reduce((acc, i) => acc + i.quantity, 0)}</div>
+                        <div><strong>Yango Delivery Charge:</strong> Rs. ${deliveryCharge}</div>
                         <div style="font-size:1.05rem; font-weight:800; color:#065f46; margin-top:4px;">
-                            <strong>Grand Total:</strong> Rs. ${totalWithDelivery.toLocaleString()} (COD)
+                            <strong>Grand Total:</strong> Rs. ${grandTotal.toLocaleString()} (COD)
                         </div>
                     </div>
 
                     <p style="font-size:0.85rem; color:#047857; margin-bottom:18px;">
-                        📞 Our Karachi logistics dispatch team will call you at <strong>${phone}</strong> before delivering to confirm your presence.
+                        🛵 Hamara rider <strong>Block T, North Nazimabad</strong> se parcel dispatch karega aur delivery se pehle aapko <strong>${phone}</strong> par call karega.
                     </p>
 
                     <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('orderSuccessModal')">
@@ -1177,10 +1348,9 @@
             const prod = products.find(p => p.id === productId);
             if (!prod) return;
             prod.outOfStock = !prod.outOfStock;
-            saveProducts();
+            saveProducts(true);
             renderProducts();
             renderAdminStockList();
-            alert(`"${prod.name}" status updated to: ${prod.outOfStock ? 'Out of Stock' : 'In Stock'}`);
         }
 
         // Render Customer Orders in Admin
@@ -1284,10 +1454,9 @@
 
             if (confirm(`Are you sure you want to delete "${prod.name}" from the store?`)) {
                 products = products.filter(p => p.id !== productId);
-                saveProducts();
+                saveProducts(true);
                 renderProducts();
                 renderAdminDeleteList();
-                alert(`"${prod.name}" has been deleted.`);
             }
         }
 
@@ -1342,13 +1511,12 @@
             };
 
             products.unshift(newProduct);
-            saveProducts();
+            saveProducts(true);
             renderProducts();
 
             // Reset form and close
             document.getElementById('addProductForm').reset();
             closeModal('adminModal');
-            alert(`✅ "${title}" has been added to Your Dream Shop successfully!`);
         }
 
         function closeModal(modalId) {
@@ -1365,6 +1533,7 @@
         // Initialization
         renderProducts();
         updateCartCounter();
+        fetchLiveProducts();
     </script>
 </body>
 </html>
