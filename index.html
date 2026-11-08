@@ -679,7 +679,7 @@
         <div class="section-header">
             <div>
                 <h2 class="section-title">Available Products</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Flat Delivery Fee: Rs. 200 all over Karachi</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Flat TCS Courier Delivery: Rs. 250 all over Karachi</p>
             </div>
             <div id="productCounter" style="font-weight: 600; color: var(--primary);">Showing 0 items</div>
         </div>
@@ -857,29 +857,27 @@
     <script>
         // Constants & Configuration
         const MAX_QTY_PER_PRODUCT = 3; // Maximum 3 items allowed per product
+        const TCS_DELIVERY_CHARGE = 250; // Standard Flat TCS Courier Charges Karachi
 
-        // Dispatch Hub: Block T, North Nazimabad, Karachi
-        // Real Yango Bike / Express Delivery Matrix from North Nazimabad Block T
+        // Karachi TCS Delivery Coverage Zones
         const KARACHI_AREAS = [
-            { name: "North Nazimabad (Block T / Local)", fare: 100, desc: "Immediate Local Delivery (~10-20 mins)" },
-            { name: "North Nazimabad (Other Blocks A-W)", fare: 150, desc: "Nearby North Nazimabad (~20-30 mins)" },
-            { name: "Nazimabad (1 to 7 / Golimar)", fare: 200, desc: "Short Distance Bike Delivery (~30 mins)" },
-            { name: "New Karachi / Buffer Zone", fare: 180, desc: "Direct North Delivery (~25-35 mins)" },
-            { name: "Federal B Area (Blocks 1-22)", fare: 220, desc: "Central District Delivery (~30-40 mins)" },
-            { name: "North Karachi / 4K Chowrangi / Power House", fare: 220, desc: "North Karachi Belt (~30-45 mins)" },
-            { name: "Liaquatabad / Dak Khana", fare: 230, desc: "Central Hub Delivery (~35 mins)" },
-            { name: "Gulshan-e-Iqbal (Blocks 1-19 / NIPA / Hassan Sq)", fare: 300, desc: "East Karachi Route (~40-50 mins)" },
-            { name: "Gulistan-e-Jauhar (Blocks 1-20)", fare: 350, desc: "Long East Express Route (~45-60 mins)" },
-            { name: "Saddar / Preedy / Empress Market / Tower", fare: 350, desc: "South District Commercial Route (~45-60 mins)" },
-            { name: "Jamshed Road / PECHS / Tariq Road / Bahadurabad", fare: 320, desc: "Central South Route (~45 mins)" },
-            { name: "DHA (Defence Phases 1-8)", fare: 480, desc: "Long Distance South Coastal Route (~60-75 mins)" },
-            { name: "Clifton (Blocks 1-9 / Sea View / Boat Basin)", fare: 450, desc: "Long Distance South Seaside Route (~60 mins)" },
-            { name: "Orangi Town / Qasba / Banaras", fare: 240, desc: "West District Delivery (~35-45 mins)" },
-            { name: "SITE Area / Nazimabad Chorangi", fare: 250, desc: "Industrial & West Route (~35 mins)" },
-            { name: "Malir / Model Colony / Airport", fare: 450, desc: "Airport East Expressway Route (~60 mins)" },
-            { name: "Korangi / Landhi Industrial", fare: 480, desc: "Industrial South-East Expressway Route (~60-80 mins)" },
-            { name: "Scheme 33 / Gulshan-e-Maymar / Highway", fare: 380, desc: "North-East Outskirts Route (~50 mins)" },
-            { name: "Other Karachi Location (Confirmed on Call)", fare: 350, desc: "Karachi City Flat Rate (~45-60 mins)" }
+            { name: "North Nazimabad (All Blocks A-W)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Nazimabad & Golimar", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Federal B Area (Blocks 1-22)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "New Karachi & Buffer Zone", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "North Karachi & Power House", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Gulshan-e-Iqbal (Blocks 1-19)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Gulistan-e-Jauhar (Blocks 1-20)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "DHA (Defence Phases 1-8)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Clifton (Blocks 1-9 & Sea View)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "PECHS / Tariq Road / Bahadurabad", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Saddar / Preedy / Tower / I.I Chundrigar", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Liaquatabad / Dak Khana", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Malir / Model Colony / Airport", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Korangi & Landhi", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "SITE Area & Orangi Town", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Scheme 33 & Gulshan-e-Maymar", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
+            { name: "Other Karachi Location (Confirmed on Call)", fare: 250, desc: "TCS Courier Service (~24-48 hrs)" }
         ];
 
         let selectedDeliveryArea = KARACHI_AREAS[0];
@@ -1076,7 +1074,7 @@
                         <p class="product-desc">${prod.description || 'Verified authentic product with warranty.'}</p>
                         <div class="product-pricing">
                             <span class="price-val">Rs. ${prod.price.toLocaleString()}</span>
-                            <span class="delivery-pill">⚡ Yango Dispatch: North Nazimabad Block T</span>
+                            <span class="delivery-pill">📦 TCS Express Delivery</span>
                         </div>
                         ${isOutOfStock ? `
                             <button class="btn" style="width: 100%; justify-content: center; background: #e2e8f0; color: #64748b; cursor: not-allowed; font-weight: 700;" disabled>
@@ -1192,7 +1190,7 @@
 
             const areaOptionsHtml = KARACHI_AREAS.map((a, idx) => `
                 <option value="${idx}" ${a.name === selectedDeliveryArea.name ? 'selected' : ''}>
-                    ${a.name} — Rs. ${a.fare} (Yango Bike Fare)
+                    ${a.name} — Rs. ${a.fare} (TCS Courier)
                 </option>
             `).join('');
 
@@ -1213,16 +1211,16 @@
                     `).join('')}
                 </div>
 
-                <!-- Karachi Yango Distance Delivery Calculator -->
+                <!-- Karachi TCS Delivery Selector -->
                 <div class="area-select-box">
                     <label style="font-size:0.85rem; font-weight:700; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                        <span>📍 Delivery Area in Karachi (From North Nazimabad Block T)</span>
+                        <span>📍 Delivery Destination (TCS Karachi Courier Service)</span>
                     </label>
                     <select id="areaSelector" class="form-control" style="font-weight:600;" onchange="onAreaChange(this.value)">
                         ${areaOptionsHtml}
                     </select>
                     <div class="fare-badge">
-                        <span>🛵 Yango Bike Express:</span>
+                        <span>📦 TCS Courier Express:</span>
                         <span><strong>Rs. ${deliveryCharge}</strong> • ${selectedDeliveryArea.desc}</span>
                     </div>
                 </div>
@@ -1234,7 +1232,7 @@
                         <span>Rs. ${itemsTotal.toLocaleString()}</span>
                     </div>
                     <div class="bill-row">
-                        <span>Yango Delivery (${selectedDeliveryArea.name}):</span>
+                        <span>TCS Delivery Charges (${selectedDeliveryArea.name}):</span>
                         <span style="font-weight:700; color:#b45309;">Rs. ${deliveryCharge}</span>
                     </div>
                     <div class="bill-row total">
@@ -1251,7 +1249,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Phone / WhatsApp Number * (Required for Yango Rider)</label>
+                        <label>Phone / WhatsApp Number * (Required for TCS Courier)</label>
                         <input type="tel" id="custPhone" class="form-control" placeholder="03XXXXXXXXX (Active Call / WhatsApp)" pattern="[0-9]{11}" required title="Please enter an active 11-digit mobile number">
                     </div>
 
@@ -1288,11 +1286,8 @@
                 subtotal: subtotal,
                 deliveryCharges: deliveryCharge,
                 grandTotal: grandTotal,
-                status: "Pending Dispatch (North Nazimabad Hub)"
+                status: "Pending TCS Dispatch"
             };
-
-            orders.unshift(newOrder);
-            saveOrders();
 
             cart = [];
             saveCart();
@@ -1312,17 +1307,17 @@
                         <div><strong>Phone Number:</strong> ${phone}</div>
                         <div><strong>Delivery Area:</strong> ${selectedDeliveryArea.name}</div>
                         <div><strong>Full Address:</strong> ${address}</div>
-                        <div><strong>Dispatch Origin:</strong> Block T, North Nazimabad, Karachi</div>
+                        <div><strong>Courier Partner:</strong> TCS Express Courier</div>
                         <hr style="margin: 8px 0; border: none; border-top: 1px solid #e5e7eb;">
                         <div><strong>Total Items:</strong> ${purchasedItems.reduce((acc, i) => acc + i.quantity, 0)}</div>
-                        <div><strong>Yango Delivery Charge:</strong> Rs. ${deliveryCharge}</div>
+                        <div><strong>TCS Delivery Charges:</strong> Rs. ${deliveryCharge}</div>
                         <div style="font-size:1.05rem; font-weight:800; color:#065f46; margin-top:4px;">
                             <strong>Grand Total:</strong> Rs. ${grandTotal.toLocaleString()} (COD)
                         </div>
                     </div>
 
                     <p style="font-size:0.85rem; color:#047857; margin-bottom:18px;">
-                        🛵 Hamara rider <strong>Block T, North Nazimabad</strong> se parcel dispatch karega aur delivery se pehle aapko <strong>${phone}</strong> par call karega.
+                        📦 Aapka parcel <strong>TCS Express Courier</strong> ke zariye dispatch kiya jayega aur delivery se pehle rider aapko <strong>${phone}</strong> par call karega.
                     </p>
 
                     <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('orderSuccessModal')">
