@@ -1,14 +1,5 @@
 [
   {
-    "id": 2,
-    "name": "Karachi Heritage Chrono Watch",
-    "category": "Accessories",
-    "price": 4500,
-    "description": "Stainless steel luxury water-resistant everyday smart timepiece.",
-    "image": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80",
-    "outOfStock": false
-  },
-  {
     "id": 3,
     "name": "Urban Minimalist Oxford Backpack",
     "category": "Fashion",
