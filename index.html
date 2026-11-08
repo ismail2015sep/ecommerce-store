@@ -637,9 +637,26 @@
         </div>
 
         <div class="nav-actions">
-            <button class="btn btn-outline" onclick="openAdminModal()">
-                🔒 Admin Portal
+            <!-- Normal users won't see Admin button at all -->
+            <button class="btn btn-outline" id="adminPortalBtn" style="display: none;" onclick="openAdminModal()">
+                ⚡ Admin Panel
             </button>
+
+            <!-- Auth Action (Sign In / Account Profile) -->
+            <div id="authContainer" style="display: inline-flex; align-items: center; gap: 8px;">
+                <button class="btn btn-outline" id="signInBtn" onclick="openLoginModal()" style="display: inline-flex; align-items: center; gap: 6px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.56 0 2.97.55 4.09 1.45l3.07-3.07C17.3 1.63 14.82 1 12 1 7.47 1 3.6 3.56 1.7 7.28l3.66 2.84C6.24 7.37 8.88 5 12 5z"/><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.71 2.88c2.16-2 3.71-4.94 3.71-8.7z"/><path fill="#FBBC05" d="M5.36 14.88C5.13 14.19 5 13.45 5 12.67s.13-1.52.36-2.21L1.7 7.62C.62 9.77 0 12.18 0 14.67s.62 4.9 1.7 7.05l3.66-2.84z"/><path fill="#34A853" d="M12 23.67c3.24 0 5.95-1.08 7.93-2.91l-3.71-2.88c-1.07.72-2.45 1.15-4.22 1.15-3.12 0-5.76-2.37-6.64-5.12L1.7 16.75C3.6 20.44 7.47 23.67 12 23.67z"/></svg>
+                    <span>Sign in</span>
+                </button>
+
+                <div id="userProfileBadge" style="display: none; align-items: center; gap: 8px;">
+                    <span id="userEmailTag" style="font-size: 0.82rem; font-weight: 600; background: #e0f2fe; color: #0369a1; padding: 5px 10px; border-radius: 20px; border: 1px solid #bae6fd; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
+                    <button class="btn btn-outline" style="padding: 6px 10px; font-size: 0.8rem;" onclick="handleSignOut()" title="Log out">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
             <button class="btn btn-primary cart-indicator" onclick="openCartModal()">
                 🛒 Cart
                 <span class="badge-count" id="cartCount">0</span>
@@ -685,6 +702,47 @@
         </div>
     </div>
 
+    <!-- 5.5 Google Sign-In Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box" style="max-width: 420px; text-align: center;">
+            <div class="modal-header">
+                <h3>Sign in with Google</h3>
+                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 24px 16px;">
+                <div style="margin-bottom: 20px;">
+                    <div style="width: 54px; height: 54px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.56 0 2.97.55 4.09 1.45l3.07-3.07C17.3 1.63 14.82 1 12 1 7.47 1 3.6 3.56 1.7 7.28l3.66 2.84C6.24 7.37 8.88 5 12 5z"/><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.71 2.88c2.16-2 3.71-4.94 3.71-8.7z"/><path fill="#FBBC05" d="M5.36 14.88C5.13 14.19 5 13.45 5 12.67s.13-1.52.36-2.21L1.7 7.62C.62 9.77 0 12.18 0 14.67s.62 4.9 1.7 7.05l3.66-2.84z"/><path fill="#34A853" d="M12 23.67c3.24 0 5.95-1.08 7.93-2.91l-3.71-2.88c-1.07.72-2.45 1.15-4.22 1.15-3.12 0-5.76-2.37-6.64-5.12L1.7 16.75C3.6 20.44 7.47 23.67 12 23.67z"/></svg>
+                    </div>
+                    <h4 style="margin: 0 0 6px 0; font-size: 1.1rem; color: #0f172a;">Choose your Google Account</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Sign in to access your account & store settings</p>
+                </div>
+
+                <!-- One-click quick login for the admin -->
+                <button type="button" class="btn btn-outline" onclick="performGoogleSignIn('ismail51029sep@gmail.com')" style="width: 100%; display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding: 10px 14px; margin-bottom: 14px; border-color: #cbd5e1; background: #fff; text-align: left;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: #3b82f6; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">I</div>
+                    <div style="flex: 1; overflow: hidden;">
+                        <div style="font-weight: 600; font-size: 0.88rem; color: #0f172a;">Ismail (Store Admin)</div>
+                        <div style="font-size: 0.78rem; color: #64748b;">ismail51029sep@gmail.com</div>
+                    </div>
+                    <span style="font-size: 0.75rem; background: #ecfdf5; color: #059669; font-weight: 600; padding: 2px 8px; border-radius: 12px; border: 1px solid #a7f3d0;">Admin</span>
+                </button>
+
+                <div style="position: relative; margin: 16px 0; text-align: center;">
+                    <span style="background: #fff; padding: 0 10px; color: #94a3b8; font-size: 0.8rem; position: relative; z-index: 1;">Or enter another Google account</span>
+                    <div style="position: absolute; top: 50%; left: 0; right: 0; border-top: 1px solid #e2e8f0; z-index: 0;"></div>
+                </div>
+
+                <form onsubmit="handleManualEmailSubmit(event)" style="margin-top: 14px;">
+                    <div class="form-group" style="text-align: left; margin-bottom: 12px;">
+                        <input type="email" id="customGoogleEmail" class="form-control" placeholder="yourname@gmail.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Continue with Google</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- 6. Admin Portal Modal -->
     <div class="modal-overlay" id="adminModal">
         <div class="modal-box modal-wide">
@@ -696,22 +754,10 @@
                 <button class="close-btn" onclick="closeModal('adminModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <!-- Login View -->
-                <div id="adminLoginView">
-                    <p style="font-size:0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-                        Enter Admin Passcode to access control options.
-                    </p>
-                    <div class="form-group">
-                        <label>Admin Passcode</label>
-                        <input type="password" id="adminPassInput" class="form-control" placeholder="••••••••">
-                    </div>
-                    <button class="btn btn-primary" style="width: 100%;" onclick="verifyAdmin()">Login as Admin</button>
-                </div>
-
                 <!-- Admin Dashboard View -->
-                <div id="adminPanelView" style="display: none;">
+                <div id="adminPanelView">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px;">
-                        <span style="font-weight:700; font-size:0.95rem; color:#0f172a;">Admin Mode Active</span>
+                        <span style="font-weight:700; font-size:0.95rem; color:#0f172a;">Admin Mode Active (ismail51029sep@gmail.com)</span>
                         <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8rem;" onclick="logoutAdmin()">Logout</button>
                     </div>
 
@@ -816,7 +862,6 @@
 
     <script>
         // Constants & Configuration
-        const ADMIN_PIN_HASH = "9260f889a03c3de5a806b802afdcca308513328a90c44988955d8dc13dd93504"; // SHA-256 of 1122334455
         const MAX_QTY_PER_PRODUCT = 3; // Maximum 3 items allowed per product
 
         // Dispatch Hub: Block T, North Nazimabad, Karachi
@@ -900,6 +945,10 @@
         let products = JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || defaultProducts;
         let cart = JSON.parse(localStorage.getItem('dream_shop_cart')) || [];
         let orders = JSON.parse(localStorage.getItem('dream_shop_orders')) || [];
+        
+        // Admin & Google Auth State
+        const ADMIN_EMAIL = 'ismail51029sep@gmail.com';
+        let currentAuthUser = JSON.parse(localStorage.getItem('yds_auth_user')) || null;
         let isAdminLoggedIn = false;
 
         // Fetch Live Products from Server / GitHub on load so ALL devices stay synchronized
@@ -1460,37 +1509,93 @@
             }
         }
 
-        // Admin Functionalities
-        function openAdminModal() {
-            document.getElementById('adminModal').classList.add('active');
-            if (isAdminLoggedIn) {
-                document.getElementById('adminLoginView').style.display = 'none';
-                document.getElementById('adminPanelView').style.display = 'block';
-                switchAdminTab('add');
+        // Auth & Admin Functions
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function performGoogleSignIn(email) {
+            const cleanEmail = email.trim().toLowerCase();
+            currentAuthUser = {
+                email: cleanEmail,
+                name: cleanEmail.split('@')[0],
+                loggedInAt: new Date().toISOString()
+            };
+            localStorage.setItem('yds_auth_user', JSON.stringify(currentAuthUser));
+            closeModal('loginModal');
+            syncAuthState();
+
+            if (cleanEmail === ADMIN_EMAIL.toLowerCase()) {
+                alert(`Welcome Ismail! Admin access granted for ${cleanEmail}`);
+                openAdminModal();
             } else {
-                document.getElementById('adminLoginView').style.display = 'block';
-                document.getElementById('adminPanelView').style.display = 'none';
+                alert(`Signed in successfully as ${cleanEmail}`);
             }
         }
 
-        async function verifyAdmin() {
-            const pass = document.getElementById('adminPassInput').value;
-            const hashedInput = await sha256(pass);
-            if (hashedInput === ADMIN_PIN_HASH) {
-                isAdminLoggedIn = true;
-                document.getElementById('adminPassInput').value = '';
-                document.getElementById('adminLoginView').style.display = 'none';
-                document.getElementById('adminPanelView').style.display = 'block';
-                switchAdminTab('add');
-            } else {
-                alert("Incorrect passcode! Access denied.");
+        function handleManualEmailSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('customGoogleEmail');
+            const email = input.value.trim();
+            if (!email) return;
+            performGoogleSignIn(email);
+            input.value = '';
+        }
+
+        function handleSignOut() {
+            if (confirm("Are you sure you want to log out?")) {
+                currentAuthUser = null;
+                localStorage.removeItem('yds_auth_user');
+                isAdminLoggedIn = false;
+                closeModal('adminModal');
+                syncAuthState();
+                alert("Logged out successfully.");
             }
+        }
+
+        function syncAuthState() {
+            const adminBtn = document.getElementById('adminPortalBtn');
+            const signInBtn = document.getElementById('signInBtn');
+            const userProfileBadge = document.getElementById('userProfileBadge');
+            const userEmailTag = document.getElementById('userEmailTag');
+
+            if (currentAuthUser && currentAuthUser.email) {
+                const userEmail = currentAuthUser.email.toLowerCase();
+                signInBtn.style.display = 'none';
+                userProfileBadge.style.display = 'inline-flex';
+                userEmailTag.textContent = userEmail;
+
+                if (userEmail === ADMIN_EMAIL.toLowerCase()) {
+                    isAdminLoggedIn = true;
+                    if (adminBtn) adminBtn.style.display = 'inline-block';
+                    userEmailTag.title = "Verified Admin Account";
+                    userEmailTag.innerHTML = `⭐ ${userEmail}`;
+                } else {
+                    isAdminLoggedIn = false;
+                    if (adminBtn) adminBtn.style.display = 'none';
+                    userEmailTag.title = "Standard User";
+                }
+            } else {
+                isAdminLoggedIn = false;
+                if (adminBtn) adminBtn.style.display = 'none';
+                signInBtn.style.display = 'inline-flex';
+                userProfileBadge.style.display = 'none';
+            }
+        }
+
+        // Admin Functionalities
+        function openAdminModal() {
+            if (!isAdminLoggedIn) {
+                alert("Access restricted. Please sign in with admin Google account (ismail51029sep@gmail.com).");
+                openLoginModal();
+                return;
+            }
+            document.getElementById('adminModal').classList.add('active');
+            switchAdminTab('add');
         }
 
         function logoutAdmin() {
-            isAdminLoggedIn = false;
-            document.getElementById('adminLoginView').style.display = 'block';
-            document.getElementById('adminPanelView').style.display = 'none';
+            handleSignOut();
         }
 
         function handleProductAdd(e) {
@@ -1531,6 +1636,7 @@
         }
 
         // Initialization
+        syncAuthState();
         renderProducts();
         updateCartCounter();
         fetchLiveProducts();
