@@ -5,6 +5,7 @@
     "price": 400,
     "category": "Electronics",
     "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
-    "description": "Newly added item at Your Dream Shop."
+    "description": "Newly added item at Your Dream Shop.",
+    "outOfStock": true
   }
 ]
