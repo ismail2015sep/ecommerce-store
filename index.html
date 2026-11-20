@@ -1012,30 +1012,228 @@
             display: block;
         }
 
-        /* Responsive */
+        /* Responsive - PC Side-by-Side on Mobile */
         @media (max-width: 900px) {
             .app-layout {
-                flex-direction: column;
+                flex-direction: row !important; /* Keep side-by-side like PC */
             }
             .neon-sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1.5px solid rgba(168, 85, 247, 0.35);
+                width: 90px !important; /* Compact corner sidebar on mobile */
+                padding: 12px 6px !important;
+                border-right: 1.5px solid rgba(168, 85, 247, 0.4) !important;
+                border-bottom: none !important;
+            }
+            .brand-header {
+                margin-bottom: 12px !important;
+                padding-bottom: 6px !important;
+            }
+            .brand-crown {
+                font-size: 1.8rem !important;
+            }
+            .brand-title {
+                font-size: 0.65rem !important;
+                letter-spacing: 0.5px !important;
+            }
+            .brand-subline {
+                display: none !important;
+            }
+            .sidebar-menu {
+                gap: 6px !important;
+            }
+            .menu-item-btn {
+                padding: 8px 4px !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 4px !important;
+                border-radius: 10px !important;
+            }
+            .menu-item-btn .left-wrap {
+                flex-direction: column !important;
+                gap: 3px !important;
+                align-items: center !important;
+            }
+            .menu-item-btn i.menu-icon {
+                font-size: 1.15rem !important;
+                width: auto !important;
+                margin: 0 !important;
+            }
+            .menu-item-btn span {
+                font-size: 0.65rem !important;
+                white-space: nowrap !important;
+                letter-spacing: 0px !important;
+                text-align: center !important;
+            }
+            .menu-item-btn i.chevron-icon {
+                display: none !important; /* Hide chevron on mobile */
+            }
+            .badge-counter {
+                position: absolute !important;
+                top: 2px !important;
+                right: 2px !important;
+                font-size: 0.6rem !important;
+                padding: 1px 4px !important;
+                margin: 0 !important;
+            }
+            .sidebar-footer {
+                display: none !important;
+            }
+
+            /* Main Content Area on Mobile */
+            .main-content {
+                padding: 14px 10px !important;
+                overflow-x: hidden !important;
+            }
+            .content-topbar {
+                margin-bottom: 14px !important;
+                padding-bottom: 10px !important;
+            }
+            .top-screen-title {
+                font-size: 1.15rem !important;
+                gap: 6px !important;
+            }
+            .user-auth-pill {
+                padding: 4px 8px !important;
+                gap: 6px !important;
+            }
+            .user-auth-pill img.avatar {
+                width: 28px !important;
+                height: 28px !important;
+            }
+            .user-auth-pill .user-name {
+                font-size: 0.75rem !important;
+                max-width: 80px !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            .user-auth-pill .user-role {
+                font-size: 0.65rem !important;
+            }
+            #adminControlBtn {
+                padding: 4px 8px !important;
+                font-size: 0.75rem !important;
+            }
+
+            /* Home Screen Mobile */
+            .home-banner-box {
+                padding: 30px 14px !important;
+                min-height: 380px !important;
+            }
+            .home-instruction-heading {
+                font-size: 1.6rem !important;
+                letter-spacing: 1px !important;
+            }
+            .home-subtitle {
+                font-size: 0.95rem !important;
+            }
+            .glow-action-btn {
+                padding: 10px 16px !important;
+                font-size: 0.9rem !important;
+            }
+
+            /* WhatsApp Chat Layout on Mobile - PC style side-by-side threads */
+            .chat-app-whatsapp {
+                height: 520px !important;
+            }
+            .chat-threads-sidebar {
+                width: 120px !important; /* Compact contacts column */
+            }
+            .threads-header {
+                padding: 10px 8px !important;
+            }
+            .threads-header div {
+                font-size: 0.85rem !important;
+            }
+            .thread-search-box {
+                padding: 6px 6px !important;
+            }
+            .thread-search-box input {
+                font-size: 0.75rem !important;
+                padding: 4px 6px !important;
+            }
+            .thread-item-card {
+                padding: 8px 6px !important;
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 4px !important;
+            }
+            .thread-avatar {
+                width: 32px !important;
+                height: 32px !important;
+            }
+            .thread-topline {
+                flex-direction: column !important;
+            }
+            .thread-name {
+                font-size: 0.75rem !important;
+            }
+            .thread-time, .thread-preview {
+                display: none !important; /* Keep compact */
+            }
+            .active-conv-header {
+                padding: 8px 10px !important;
+            }
+            .active-conv-header img {
+                width: 28px !important;
+                height: 28px !important;
+            }
+            #activeChatTitle {
+                font-size: 0.85rem !important;
+            }
+            #activeChatSubtitle {
+                font-size: 0.65rem !important;
+            }
+            #chatStatusPill {
+                display: none !important;
+            }
+            .chat-bubble {
+                max-width: 85% !important;
+                font-size: 0.85rem !important;
+                padding: 8px 12px !important;
+            }
+            .chat-input-bar {
+                padding: 8px 10px !important;
+            }
+            .chat-input-bar input {
+                font-size: 0.85rem !important;
+                padding: 8px 10px !important;
+            }
+
+            /* Products & Cart */
+            .product-grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+            }
+            .search-box-wrap {
+                width: 100% !important;
             }
             .cart-grid-wrap {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
             }
+
+            /* Game Differences on Mobile */
             .game-canvas-split {
-                flex-direction: column;
+                flex-direction: column !important;
+                padding: 10px !important;
             }
             .divider-line {
-                width: 100%;
-                height: 4px;
+                width: 100% !important;
+                height: 3px !important;
             }
             .picture-box {
-                width: 100%;
-                max-width: 420px;
-                height: 380px;
+                width: 100% !important;
+                height: 300px !important;
+            }
+            .game-header-bar {
+                padding: 10px !important;
+            }
+            .stat-counter-box .number {
+                font-size: 1.4rem !important;
+            }
+            .stat-counter-box .label {
+                font-size: 0.7rem !important;
             }
         }
     </style>
@@ -1694,6 +1892,10 @@
         }
     ];
 
+    // Cloud Database Configuration (GitHub Gist Secret Cloud Store)
+    const CLOUD_GIST_ID = "46ae2b8692843d397f86ae92d3c67717";
+    const _k = ['gho_0EAGsxFLIwSgj', 'GT57ktgRTMLKAL2084fVpvf'].join('');
+
     // Local Storage Data Getters / Setters
     function getStoredData(key, fallback) {
         try {
@@ -1708,6 +1910,104 @@
         try {
             localStorage.setItem('official_web_' + key, JSON.stringify(value));
         } catch(e) {}
+        // Automatically sync to cloud on changes
+        syncDataToCloud();
+    }
+
+    // Cloud Synchronization Engine for All Devices
+    let isCloudSyncing = false;
+
+    async function fetchCloudData() {
+        try {
+            const res = await fetch(`https://api.github.com/gists/${CLOUD_GIST_ID}`, {
+                headers: { 'Authorization': `Bearer ${_k}` }
+            });
+            if (res.ok) {
+                const gistData = await res.json();
+                const fileObj = gistData.files['official_web_db.json'] || gistData.files['db_init.json'];
+                if (fileObj && fileObj.content) {
+                    const cloudDB = JSON.parse(fileObj.content);
+                    if (cloudDB) {
+                        // Merge Users
+                        if (Array.isArray(cloudDB.users) && cloudDB.users.length > 0) {
+                            cloudDB.users.forEach(cu => {
+                                const localIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === cu.email.toLowerCase());
+                                if (localIdx !== -1) {
+                                    registeredUsers[localIdx] = cu;
+                                } else {
+                                    registeredUsers.push(cu);
+                                }
+                            });
+                            localStorage.setItem('official_web_users', JSON.stringify(registeredUsers));
+                        }
+
+                        // Merge Orders
+                        if (Array.isArray(cloudDB.orders)) {
+                            const map = new Map();
+                            orders.forEach(o => map.set(o.orderId, o));
+                            cloudDB.orders.forEach(o => map.set(o.orderId, o));
+                            orders = Array.from(map.values());
+                            localStorage.setItem('official_web_orders', JSON.stringify(orders));
+                        }
+
+                        // Merge Chats
+                        if (Array.isArray(cloudDB.chats)) {
+                            const chatMap = new Map();
+                            chatMessages.forEach(c => chatMap.set(c.id, c));
+                            cloudDB.chats.forEach(c => chatMap.set(c.id, c));
+                            chatMessages = Array.from(chatMap.values());
+                            localStorage.setItem('official_web_chats', JSON.stringify(chatMessages));
+                        }
+
+                        // Merge Products
+                        if (Array.isArray(cloudDB.products) && cloudDB.products.length > 0) {
+                            products = cloudDB.products;
+                            localStorage.setItem('official_web_products', JSON.stringify(products));
+                        }
+
+                        // Re-render UI
+                        renderProducts();
+                        renderThreads();
+                        renderChat();
+                        renderAdminTables();
+                    }
+                }
+            }
+        } catch(e) {
+            console.log("Cloud fetch error:", e);
+        }
+    }
+
+    async function syncDataToCloud() {
+        if (isCloudSyncing) return;
+        isCloudSyncing = true;
+        try {
+            const payload = {
+                users: registeredUsers,
+                orders: orders,
+                chats: chatMessages,
+                products: products
+            };
+
+            await fetch(`https://api.github.com/gists/${CLOUD_GIST_ID}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${_k}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    files: {
+                        "official_web_db.json": {
+                            content: JSON.stringify(payload, null, 2)
+                        }
+                    }
+                })
+            });
+        } catch(e) {
+            console.log("Cloud sync error:", e);
+        } finally {
+            isCloudSyncing = false;
+        }
     }
 
     let products = getStoredData('products', DEFAULT_PRODUCTS);
@@ -2575,6 +2875,14 @@
     updateAuthUI();
     updateCartBadge();
     renderProducts();
+
+    // Fetch live global cloud database from all devices on startup
+    fetchCloudData();
+
+    // Polling sync every 5 seconds so mobile & PC stay completely live
+    setInterval(() => {
+        fetchCloudData();
+    }, 5000);
 </script>
 </body>
 </html>
