@@ -1395,7 +1395,12 @@
 
                 <div class="neon-input-group">
                     <label>Password *</label>
-                    <input type="password" id="authPasswordInput" placeholder="••••••••••••" required>
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <input type="password" id="authPasswordInput" style="padding-right: 44px;" placeholder="••••••••••••" required>
+                        <button type="button" onclick="togglePasswordVisibility()" id="togglePasswordBtn" style="position: absolute; right: 12px; background: none; border: none; color: #c084fc; cursor: pointer; font-size: 1.15rem; outline: none; padding: 4px;">
+                            <i class="fa-solid fa-eye" id="togglePasswordIcon"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div id="authErrorMessage" style="display: none; color: #ef4444; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; padding: 10px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem;">
@@ -1663,6 +1668,24 @@
             }
         } else {
             openModal('googleAuthModal');
+        }
+    }
+
+    function togglePasswordVisibility() {
+        const passInput = document.getElementById('authPasswordInput');
+        const icon = document.getElementById('togglePasswordIcon');
+        if (!passInput || !icon) return;
+
+        if (passInput.type === 'password') {
+            passInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+            icon.style.color = '#ec4899';
+        } else {
+            passInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+            icon.style.color = '#c084fc';
         }
     }
 
