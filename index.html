@@ -754,34 +754,135 @@
             box-shadow: 0 0 14px rgba(168, 85, 247, 0.5);
         }
 
-        /* 6. MESSAGE OURS VIEW */
-        .chat-container-card {
-            background: rgba(22, 11, 48, 0.7);
-            border: 1.5px solid rgba(168, 85, 247, 0.35);
+        /* 6. MESSAGE OURS VIEW - WhatsApp / Messenger Style Multi-Thread */
+        .chat-app-whatsapp {
+            background: rgba(14, 7, 32, 0.85);
+            border: 1.5px solid rgba(168, 85, 247, 0.4);
             border-radius: 18px;
             display: flex;
-            flex-direction: column;
-            height: 580px;
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+            height: 600px;
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.25);
             overflow: hidden;
         }
 
-        .chat-header {
-            background: rgba(11, 5, 30, 0.9);
-            padding: 16px 24px;
-            border-bottom: 1.5px solid rgba(168, 85, 247, 0.3);
+        .chat-threads-sidebar {
+            width: 320px;
+            background: rgba(10, 4, 24, 0.95);
+            border-right: 1.5px solid rgba(168, 85, 247, 0.3);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .threads-header {
+            padding: 16px 18px;
+            background: rgba(22, 11, 48, 0.8);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.25);
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .chat-messages-flow {
+        .thread-search-box {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(15, 6, 35, 0.6);
+        }
+
+        .thread-search-box input {
+            width: 100%;
+            background: rgba(22, 11, 48, 0.7);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px;
+            padding: 7px 12px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .threads-list-scroll {
             flex: 1;
-            padding: 20px;
             overflow-y: auto;
+        }
+
+        .thread-item-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .thread-item-card:hover {
+            background: rgba(124, 58, 237, 0.15);
+        }
+
+        .thread-item-card.active {
+            background: rgba(124, 58, 237, 0.35);
+            border-left: 4px solid #a855f7;
+        }
+
+        .thread-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid #a855f7;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .thread-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .thread-topline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .thread-name {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 0.98rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .thread-time {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .thread-preview {
+            font-size: 0.84rem;
+            color: #94a3b8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-active-conversation {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            background: rgba(11, 5, 26, 0.7);
+        }
+
+        .active-conv-header {
+            padding: 14px 20px;
+            background: rgba(22, 11, 48, 0.85);
+            border-bottom: 1.5px solid rgba(168, 85, 247, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .chat-bubble {
@@ -798,6 +899,7 @@
             background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
             color: white;
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+            border-bottom-right-radius: 2px;
         }
 
         .chat-bubble.theirs {
@@ -805,6 +907,7 @@
             background: rgba(30, 15, 60, 0.85);
             border: 1px solid rgba(168, 85, 247, 0.4);
             color: #f1f5f9;
+            border-bottom-left-radius: 2px;
         }
 
         .chat-sender-tag {
@@ -822,8 +925,8 @@
         }
 
         .chat-input-bar {
-            padding: 16px 20px;
-            background: rgba(11, 5, 30, 0.9);
+            padding: 14px 20px;
+            background: rgba(11, 5, 30, 0.95);
             border-top: 1.5px solid rgba(168, 85, 247, 0.3);
             display: flex;
             gap: 12px;
@@ -1339,34 +1442,51 @@
             </div>
         </section>
 
-        <!-- 6. MESSAGE OURS VIEW -->
+        <!-- 6. MESSAGE OURS VIEW (WhatsApp / Messenger Style) -->
         <section class="content-view" id="view-message">
-            <div class="chat-container-card">
-                <div class="chat-header">
-                    <div>
-                        <h3 style="font-family: 'Orbitron'; font-size: 1.3rem; color: #ffffff;">
-                            <i class="fa-solid fa-comments" style="color: #a855f7;"></i> Official Live Chat
-                        </h3>
-                        <span style="font-size: 0.85rem; color: #10b981;">
-                            <i class="fa-solid fa-circle" style="font-size: 0.65rem;"></i> Admin Online & Ready to Reply
-                        </span>
+            <div class="chat-app-whatsapp">
+                <!-- Left Sidebar: Conversations List (WhatsApp style) -->
+                <div class="chat-threads-sidebar">
+                    <div class="threads-header">
+                        <div style="font-family: 'Orbitron'; font-weight: 700; color: #ffffff; font-size: 1.1rem;">
+                            <i class="fa-solid fa-comments" style="color: #a855f7;"></i> Chats
+                        </div>
+                        <span id="threadsBadgeNum" style="background: #a855f7; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: bold;">0</span>
                     </div>
 
-                    <div id="chatAuthPromptBadge" style="font-size: 0.85rem; color: #c084fc;">
-                        Logged in as <strong id="chatUserNameTag">Guest</strong>
+                    <div class="thread-search-box">
+                        <input type="text" id="chatSearchInput" placeholder="Search contact..." oninput="filterChatThreads()">
+                    </div>
+
+                    <div class="threads-list-scroll" id="threadsListContainer">
+                        <!-- Threads injected by JS -->
                     </div>
                 </div>
 
-                <div class="chat-messages-flow" id="chatMessagesBox">
-                    <!-- Populated dynamically -->
-                </div>
+                <!-- Right Area: Active Conversation -->
+                <div class="chat-active-conversation">
+                    <div class="active-conv-header" id="activeConvHeader">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=AdminIsmail" id="activeChatAvatar" style="width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid #a855f7;">
+                            <div>
+                                <div style="font-weight: 700; color: #ffffff; font-size: 1.05rem;" id="activeChatTitle">Official Web Support</div>
+                                <div style="font-size: 0.78rem; color: #10b981;" id="activeChatSubtitle"><i class="fa-solid fa-circle" style="font-size: 0.6rem;"></i> Online</div>
+                            </div>
+                        </div>
+                        <span style="font-size: 0.85rem; color: #c084fc;" id="chatStatusPill">Connected</span>
+                    </div>
 
-                <form class="chat-input-bar" onsubmit="handleSendChatMessage(event)">
-                    <input type="text" id="chatMessageInput" class="neon-input-group" style="margin: 0; flex: 1;" placeholder="Write your message to Admin..." required>
-                    <button type="submit" class="glow-action-btn" style="padding: 12px 24px;">
-                        <i class="fa-solid fa-paper-plane"></i> Send
-                    </button>
-                </form>
+                    <div class="chat-messages-flow" id="chatMessagesBox">
+                        <!-- Messages for selected thread -->
+                    </div>
+
+                    <form class="chat-input-bar" onsubmit="handleSendChatMessage(event)">
+                        <input type="text" id="chatMessageInput" class="neon-input-group" style="margin: 0; flex: 1;" placeholder="Type a message..." required>
+                        <button type="submit" class="glow-action-btn" style="padding: 10px 22px;">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
@@ -2015,14 +2135,184 @@
     }
 
     /* ========================================================
-       MESSAGE OURS & LIVE CHAT
+       MESSAGE OURS & LIVE CHAT (WHATSAPP MULTI-USER THREADS)
        ======================================================== */
+    let selectedThreadEmail = null;
+
+    function getThreadList() {
+        if (!currentUser) return [];
+
+        if (currentUser.role === 'admin') {
+            // Admin sees all unique users who messaged or registered
+            const userMap = new Map();
+
+            // Include registered users
+            registeredUsers.forEach(u => {
+                if (u.email.toLowerCase() !== ADMIN_CREDENTIALS.email.toLowerCase()) {
+                    userMap.set(u.email.toLowerCase(), {
+                        email: u.email,
+                        name: u.name,
+                        photo: u.photo,
+                        lastMsg: "No messages yet",
+                        time: u.registeredAt || ""
+                    });
+                }
+            });
+
+            // Include chat message activity
+            chatMessages.forEach(m => {
+                const partnerEmail = (m.threadEmail || m.senderEmail || "").toLowerCase();
+                if (partnerEmail && partnerEmail !== ADMIN_CREDENTIALS.email.toLowerCase()) {
+                    const existing = userMap.get(partnerEmail) || {
+                        email: partnerEmail,
+                        name: m.sender || partnerEmail.split('@')[0],
+                        photo: `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(partnerEmail)}`
+                    };
+                    existing.lastMsg = m.text;
+                    existing.time = m.time;
+                    userMap.set(partnerEmail, existing);
+                }
+            });
+
+            return Array.from(userMap.values());
+        } else {
+            // Normal user sees Admin thread
+            const userThreadMsgs = chatMessages.filter(m => 
+                (m.threadEmail && m.threadEmail.toLowerCase() === currentUser.email.toLowerCase()) ||
+                (m.senderEmail && m.senderEmail.toLowerCase() === currentUser.email.toLowerCase())
+            );
+            const lastM = userThreadMsgs[userThreadMsgs.length - 1];
+            return [
+                {
+                    email: ADMIN_CREDENTIALS.email,
+                    name: "Official Web (Master Admin)",
+                    photo: "https://api.dicebear.com/7.x/bottts/svg?seed=AdminIsmail",
+                    lastMsg: lastM ? lastM.text : "Welcome to support! Send your message.",
+                    time: lastM ? lastM.time : "Online"
+                }
+            ];
+        }
+    }
+
+    function renderThreads(filter = "") {
+        const container = document.getElementById('threadsListContainer');
+        const badge = document.getElementById('threadsBadgeNum');
+        if (!container) return;
+
+        let threads = getThreadList();
+        if (filter) {
+            threads = threads.filter(t => 
+                t.name.toLowerCase().includes(filter.toLowerCase()) ||
+                t.email.toLowerCase().includes(filter.toLowerCase())
+            );
+        }
+
+        if (badge) badge.textContent = threads.length;
+
+        if (threads.length === 0) {
+            container.innerHTML = `
+                <div style="padding: 24px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                    No contacts found.
+                </div>
+            `;
+            return;
+        }
+
+        // Set default selected thread if none
+        if (!selectedThreadEmail && threads.length > 0) {
+            selectedThreadEmail = threads[0].email;
+        }
+
+        container.innerHTML = threads.map(t => {
+            const isSelected = selectedThreadEmail && selectedThreadEmail.toLowerCase() === t.email.toLowerCase();
+            return `
+                <div class="thread-item-card ${isSelected ? 'active' : ''}" onclick="selectChatThread('${t.email}')">
+                    <img src="${t.photo}" class="thread-avatar" alt="${t.name}">
+                    <div class="thread-info">
+                        <div class="thread-topline">
+                            <span class="thread-name">${t.name}</span>
+                            <span class="thread-time">${t.time || ''}</span>
+                        </div>
+                        <div class="thread-preview">${t.lastMsg || 'Tap to chat'}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function selectChatThread(email) {
+        selectedThreadEmail = email;
+        renderThreads();
+        renderChat();
+    }
+
+    function filterChatThreads() {
+        const val = document.getElementById('chatSearchInput').value.trim();
+        renderThreads(val);
+    }
+
     function renderChat() {
+        renderThreads();
+
         const box = document.getElementById('chatMessagesBox');
+        const titleEl = document.getElementById('activeChatTitle');
+        const avatarEl = document.getElementById('activeChatAvatar');
+        const subEl = document.getElementById('activeChatSubtitle');
         if (!box) return;
 
-        box.innerHTML = chatMessages.map(msg => {
-            const isMine = currentUser && (msg.senderEmail === currentUser.email || (currentUser.role === 'admin' && msg.role === 'admin'));
+        if (!currentUser) {
+            box.innerHTML = `
+                <div style="text-align:center; padding: 40px; color:#94a3b8;">
+                    Please sign in with Google to chat.
+                </div>
+            `;
+            return;
+        }
+
+        let targetEmail = selectedThreadEmail;
+        if (!targetEmail) {
+            const list = getThreadList();
+            if (list.length > 0) {
+                targetEmail = list[0].email;
+                selectedThreadEmail = targetEmail;
+            }
+        }
+
+        // Update active header
+        if (currentUser.role === 'admin') {
+            const targetUser = registeredUsers.find(u => u.email.toLowerCase() === (targetEmail || '').toLowerCase());
+            titleEl.textContent = targetUser ? targetUser.name : (targetEmail || 'Select User');
+            avatarEl.src = targetUser ? targetUser.photo : `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(targetEmail || 'user')}`;
+            subEl.innerHTML = `<i class="fa-solid fa-envelope" style="color: #a855f7;"></i> ${targetEmail || ''}`;
+        } else {
+            titleEl.textContent = "Official Web Support (Admin)";
+            avatarEl.src = "https://api.dicebear.com/7.x/bottts/svg?seed=AdminIsmail";
+            subEl.innerHTML = `<i class="fa-solid fa-circle" style="font-size:0.6rem; color:#10b981;"></i> Online & Ready`;
+        }
+
+        // Filter messages for current thread
+        const currentThreadKey = currentUser.role === 'admin' 
+            ? (targetEmail || '').toLowerCase()
+            : currentUser.email.toLowerCase();
+
+        const msgs = chatMessages.filter(m => {
+            const th = (m.threadEmail || m.senderEmail || '').toLowerCase();
+            return th === currentThreadKey;
+        });
+
+        if (msgs.length === 0) {
+            box.innerHTML = `
+                <div style="text-align: center; margin: auto; color: #94a3b8; font-size: 0.95rem;">
+                    <i class="fa-solid fa-comment-dots" style="font-size: 2.5rem; color: #a855f7; margin-bottom: 10px;"></i>
+                    <p>No messages yet. Send a message to start conversation!</p>
+                </div>
+            `;
+            return;
+        }
+
+        box.innerHTML = msgs.map(msg => {
+            const isMine = (msg.senderEmail && msg.senderEmail.toLowerCase() === currentUser.email.toLowerCase()) ||
+                           (currentUser.role === 'admin' && msg.role === 'admin');
             return `
                 <div class="chat-bubble ${isMine ? 'mine' : 'theirs'}">
                     <div class="chat-sender-tag">${msg.sender}</div>
@@ -2047,8 +2337,18 @@
         const text = input.value.trim();
         if (!text) return;
 
+        const targetThreadEmail = currentUser.role === 'admin' 
+            ? (selectedThreadEmail || '').toLowerCase()
+            : currentUser.email.toLowerCase();
+
+        if (currentUser.role === 'admin' && !selectedThreadEmail) {
+            alert("Pehle kisi user ki chat select karein!");
+            return;
+        }
+
         const newMsg = {
             id: Date.now(),
+            threadEmail: targetThreadEmail,
             sender: currentUser.name,
             senderEmail: currentUser.email,
             role: currentUser.role,
@@ -2066,7 +2366,9 @@
             setTimeout(() => {
                 chatMessages.push({
                     id: Date.now() + 1,
+                    threadEmail: currentUser.email.toLowerCase(),
                     sender: "Admin (Official Web)",
+                    senderEmail: ADMIN_CREDENTIALS.email,
                     role: "admin",
                     text: `Aap ka message receive ho gaya hai, ${currentUser.name}! Admin jald rabta karega.`,
                     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
