@@ -3,215 +3,464 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Dream Shop - Exclusive Karachi Delivery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Official Web - Neon Portal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --accent: #f59e0b;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --success: #10b981;
+            --bg-dark: #070312;
+            --sidebar-bg: #0b051e;
+            --card-bg: rgba(22, 11, 45, 0.75);
+            --neon-purple: #a855f7;
+            --neon-violet: #8b5cf6;
+            --neon-glow: rgba(168, 85, 247, 0.45);
+            --neon-border: #7c3aed;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
             --danger: #ef4444;
-            --radius: 14px;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            --success: #10b981;
+            --radius-btn: 14px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Rajdhani', 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 45%);
+            background-attachment: fixed;
+            overflow-x: hidden;
         }
 
-        /* Top Announcement Bar */
-        .announcement-bar {
-            background: linear-gradient(90deg, #dc2626, #ef4444);
-            color: #ffffff;
+        /* App Container */
+        .app-layout {
+            display: flex;
+            width: 100vw;
+            min-height: 100vh;
+        }
+
+        /* ----------------- SIDEBAR ----------------- */
+        .neon-sidebar {
+            width: 320px;
+            background: linear-gradient(180deg, #0d0622 0%, #080315 100%);
+            border-right: 1.5px solid rgba(168, 85, 247, 0.35);
+            box-shadow: 4px 0 30px rgba(124, 58, 237, 0.25);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            flex-shrink: 0;
+            z-index: 100;
+            position: relative;
+        }
+
+        /* Brand Crown & Header */
+        .brand-header {
             text-align: center;
-            padding: 9px 16px;
-            font-size: 0.88rem;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            position: relative;
+        }
+
+        .brand-crown {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #d8b4fe 0%, #c084fc 40%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.85));
+            animation: pulseCrown 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseCrown {
+            0% { filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6)); }
+            100% { filter: drop-shadow(0 0 22px rgba(236, 72, 153, 0.9)); }
+        }
+
+        .brand-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.65rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.8), 0 0 24px rgba(168, 85, 247, 0.5);
+            margin-top: 4px;
+        }
+
+        .brand-subline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .brand-subline .line {
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, transparent, #a855f7, transparent);
+        }
+
+        .brand-subline .gem {
+            color: #c084fc;
+            font-size: 0.8rem;
+            filter: drop-shadow(0 0 6px #a855f7);
+        }
+
+        /* Nav List */
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .menu-item-btn {
+            background: rgba(22, 11, 48, 0.65);
+            border: 1.5px solid rgba(139, 92, 246, 0.35);
+            color: #e2e8f0;
+            padding: 13px 18px;
+            border-radius: var(--radius-btn);
+            font-size: 1.15rem;
             font-weight: 700;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .announcement-badge {
-            background: rgba(255, 255, 255, 0.25);
-            padding: 2px 8px;
-            border-radius: 999px;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-        }
-
-        /* Header Navigation */
-        header {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 18px 32px;
-            display: flex;
-            align-items: center;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .brand-logo {
-            font-size: 1.65rem;
+        .menu-item-btn .left-wrap {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-item-btn i.menu-icon {
+            font-size: 1.35rem;
+            width: 26px;
+            text-align: center;
+            color: #c084fc;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.6));
+            transition: transform 0.2s;
+        }
+
+        .menu-item-btn i.fa-google {
+            background: linear-gradient(135deg, #ea4335, #fbbc05, #34a853, #4285f4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: none;
+        }
+
+        .menu-item-btn i.chevron-icon {
+            font-size: 1rem;
+            color: #a855f7;
+            transition: transform 0.2s;
+        }
+
+        .menu-item-btn:hover {
+            border-color: #c084fc;
+            background: rgba(45, 17, 85, 0.6);
+            box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+            transform: translateX(4px);
+        }
+
+        .menu-item-btn.active {
+            background: linear-gradient(90deg, rgba(76, 29, 149, 0.8) 0%, rgba(124, 58, 237, 0.5) 100%);
+            border: 2px solid #c084fc;
+            box-shadow: 0 0 22px rgba(168, 85, 247, 0.7), inset 0 0 12px rgba(168, 85, 247, 0.4);
+            color: #ffffff;
+        }
+
+        .menu-item-btn.active i.menu-icon {
+            color: #ffffff;
+            filter: drop-shadow(0 0 10px #ffffff);
+        }
+
+        .menu-item-btn.active i.chevron-icon {
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        .badge-counter {
+            background: #ec4899;
+            color: white;
+            font-size: 0.75rem;
             font-weight: 800;
-            color: var(--primary);
+            padding: 2px 7px;
+            border-radius: 12px;
+            margin-right: 6px;
+            box-shadow: 0 0 8px rgba(236, 72, 153, 0.7);
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            margin-top: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(168, 85, 247, 0.25);
+            padding-top: 15px;
+        }
+
+        .sidebar-footer .crown-accent {
+            color: #a855f7;
+            font-size: 1.3rem;
+            filter: drop-shadow(0 0 8px #a855f7);
+        }
+
+        /* ----------------- MAIN VIEW AREA ----------------- */
+        .main-content {
+            flex: 1;
+            padding: 30px 40px;
             display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .brand-logo span {
-            color: #0f172a;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .btn {
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-outline {
-            border-color: var(--border);
-            background: #fff;
-            color: var(--text-main);
-        }
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: #fff;
-        }
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        .cart-indicator {
+            flex-direction: column;
+            overflow-y: auto;
             position: relative;
         }
 
-        .badge-count {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #ef4444;
-            color: white;
-            font-size: 0.72rem;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-
-        /* Hero Banner */
-        .hero {
-            background: radial-gradient(circle at top right, #e0e7ff 0%, #f8fafc 60%);
-            padding: 56px 24px 38px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        .hero h1 .highlight {
-            color: var(--primary);
-            background: linear-gradient(120deg, #4f46e5, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .karachi-notice {
-            margin-top: 18px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #fef2f2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-            padding: 8px 18px;
-            border-radius: 999px;
-            font-weight: 600;
-            font-size: 0.92rem;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 36px 20px 80px;
-            flex: 1;
-            width: 100%;
-        }
-
-        .section-header {
+        /* Top Bar inside content */
+        .content-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
         }
 
-        .section-title {
-            font-size: 1.5rem;
+        .top-screen-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
             font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-shadow: 0 0 14px rgba(168, 85, 247, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* Product Grid */
+        .user-auth-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(22, 11, 48, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 30px;
+            padding: 6px 16px;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
+        }
+
+        .user-auth-pill img.avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 8px #a855f7;
+            object-fit: cover;
+        }
+
+        .user-auth-pill .user-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .user-auth-pill .user-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .user-auth-pill .user-role {
+            font-size: 0.75rem;
+            color: #c084fc;
+            font-weight: 600;
+        }
+
+        /* Content Views */
+        .content-view {
+            display: none;
+            flex: 1;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content-view.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 1. HOME SCREEN */
+        .home-banner-box {
+            background: radial-gradient(circle at center, rgba(88, 28, 135, 0.45) 0%, rgba(15, 6, 32, 0.75) 100%);
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.35);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 480px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-banner-box::before {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: #ec4899;
+            filter: blur(120px);
+            opacity: 0.2;
+            top: 20%;
+            pointer-events: none;
+        }
+
+        .home-instruction-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 2.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px #a855f7, 0 0 35px rgba(168, 85, 247, 0.8);
+            margin-bottom: 16px;
+        }
+
+        .home-subtitle {
+            font-size: 1.35rem;
+            color: #cbd5e1;
+            font-weight: 600;
+            max-width: 650px;
+            line-height: 1.5;
+        }
+
+        .home-quick-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .glow-action-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .glow-action-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.9);
+        }
+
+        /* 2. MY CHANNEL VIEW */
+        .channel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            text-align: center;
+            background: rgba(22, 11, 48, 0.5);
+            border: 2px solid rgba(239, 68, 68, 0.4);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.25);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .yt-huge-btn {
+            background: linear-gradient(135deg, #ff0000 0%, #b91c1c 100%);
+            color: #ffffff;
+            border: none;
+            padding: 24px 50px;
+            border-radius: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 0 35px rgba(255, 0, 0, 0.7);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: 25px;
+        }
+
+        .yt-huge-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 55px rgba(255, 0, 0, 0.95);
+        }
+
+        /* 3. SHOP VIEW */
+        .shop-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box-wrap {
+            display: flex;
+            align-items: center;
+            background: rgba(22, 11, 48, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 12px;
+            padding: 8px 16px;
+            width: 320px;
+        }
+
+        .search-box-wrap input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
+            margin-left: 10px;
+            width: 100%;
+            outline: none;
+        }
+
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -219,1436 +468,1774 @@
         }
 
         .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
+            background: rgba(22, 11, 48, 0.7);
+            border: 1.5px solid rgba(139, 92, 246, 0.35);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
+            transition: all 0.25s ease;
+            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 30px -8px rgba(0, 0, 0, 0.08);
+            transform: translateY(-6px);
+            border-color: #a855f7;
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
         }
 
-        .product-img-wrapper {
-            position: relative;
-            height: 200px;
-            background: #f1f5f9;
-            overflow: hidden;
-        }
-
-        .product-img-wrapper img {
+        .product-card img {
             width: 100%;
-            height: 100%;
+            height: 190px;
             object-fit: cover;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
         }
 
-        .category-tag {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(4px);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .product-info {
-            padding: 20px;
+        .product-body {
+            padding: 16px;
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
-        .product-title {
-            font-size: 1.1rem;
+        .prod-cat-badge {
+            font-size: 0.75rem;
+            color: #c084fc;
+            text-transform: uppercase;
             font-weight: 700;
-            color: var(--text-main);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .prod-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
             margin-bottom: 6px;
         }
 
-        .product-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            line-height: 1.45;
+        .prod-desc {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            line-height: 1.35;
+            margin-bottom: 12px;
             flex: 1;
         }
 
-        .product-pricing {
+        .prod-footer {
             display: flex;
-            align-items: baseline;
             justify-content: space-between;
-            margin-bottom: 16px;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
         }
 
-        .price-val {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: var(--primary);
+        .prod-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
         }
 
-        .delivery-pill {
-            font-size: 0.72rem;
-            background: #ecfdf5;
-            color: #065f46;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 6px;
-        }
-
-        .area-select-box {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 16px;
-        }
-
-        .fare-badge {
-            display: inline-flex;
+        .add-cart-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            border: none;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
             align-items: center;
             gap: 6px;
-            background: #fef3c7;
-            color: #92400e;
-            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .add-cart-btn:hover {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            transform: scale(1.04);
+        }
+
+        .out-of-stock-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ef4444;
+            color: white;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+        }
+
+        /* 4. GAME VIEW - 10 Differences */
+        .game-header-bar {
+            background: rgba(22, 11, 48, 0.8);
+            border: 1.5px solid #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
+            border-radius: 16px;
+            padding: 16px 25px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .stat-counter-box {
+            text-align: center;
+        }
+
+        .stat-counter-box .label {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-top: 6px;
         }
 
-        .product-action-row {
+        .stat-counter-box .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #a855f7;
+            text-shadow: 0 0 12px #a855f7;
+        }
+
+        .stat-counter-box .number.green {
+            color: #10b981;
+            text-shadow: 0 0 12px #10b981;
+        }
+
+        .game-canvas-split {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-qty-control {
-            display: inline-flex;
-            align-items: center;
-            background: #f1f5f9;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2px;
-        }
-
-        .card-qty-btn {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            width: 30px;
-            height: 30px;
-            display: flex;
+            gap: 20px;
+            position: relative;
+            background: rgba(11, 5, 30, 0.9);
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 35px rgba(124, 58, 237, 0.3);
+            border-radius: 20px;
+            padding: 20px;
             align-items: center;
             justify-content: center;
+        }
+
+        .divider-line {
+            width: 4px;
+            height: 480px;
+            background: linear-gradient(180deg, transparent, #ec4899, #a855f7, transparent);
+            box-shadow: 0 0 16px #a855f7;
+            border-radius: 2px;
+        }
+
+        .picture-box {
+            position: relative;
+            width: 460px;
+            height: 480px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: #0f0728;
+            user-select: none;
+        }
+
+        .picture-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .diff-spot {
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-main);
-            transition: all 0.15s ease;
+            transition: all 0.2s;
         }
 
-        .card-qty-btn:hover {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
+        .diff-spot:hover {
+            opacity: 0.85;
+            filter: drop-shadow(0 0 8px #ec4899);
         }
 
-        .card-qty-input {
-            width: 36px;
-            text-align: center;
-            border: none;
-            background: transparent;
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--text-main);
-            outline: none;
-        }
-
-        .stock-badge-out {
+        .found-marker {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: #ef4444;
-            color: #ffffff;
-            padding: 4px 10px;
+            width: 38px;
+            height: 38px;
+            border: 3px solid #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 16px #10b981, inset 0 0 10px #10b981;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: pingFound 0.6s ease;
+        }
+
+        @keyframes pingFound {
+            0% { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        /* 5. CART VIEW */
+        .cart-grid-wrap {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 30px;
+        }
+
+        .cart-items-card, .cart-checkout-card {
+            background: rgba(22, 11, 48, 0.7);
+            border: 1.5px solid rgba(139, 92, 246, 0.35);
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .cart-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            gap: 15px;
+        }
+
+        .cart-row img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .cart-row .item-info {
+            flex: 1;
+        }
+
+        .cart-qty-ctrl {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-qty-ctrl button {
+            background: rgba(124, 58, 237, 0.5);
+            border: 1px solid #a855f7;
+            color: white;
+            width: 28px;
+            height: 28px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .neon-input-group {
+            margin-bottom: 16px;
+        }
+
+        .neon-input-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: #c084fc;
             font-weight: 700;
+            margin-bottom: 6px;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 6px rgba(239,68,68,0.3);
         }
 
-        .product-card.is-out-of-stock {
-            opacity: 0.78;
+        .neon-input-group input, .neon-input-group textarea, .neon-input-group select {
+            width: 100%;
+            background: rgba(11, 5, 30, 0.85);
+            border: 1.5px solid rgba(168, 85, 247, 0.4);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
         }
 
-        .product-card.is-out-of-stock .product-img-wrapper img {
-            filter: grayscale(40%);
+        .neon-input-group input:focus, .neon-input-group textarea:focus, .neon-input-group select:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 14px rgba(168, 85, 247, 0.5);
         }
 
-        /* Modal Overlay */
-        .modal-overlay {
+        /* 6. MESSAGE OURS VIEW */
+        .chat-container-card {
+            background: rgba(22, 11, 48, 0.7);
+            border: 1.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            height: 580px;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: rgba(11, 5, 30, 0.9);
+            padding: 16px 24px;
+            border-bottom: 1.5px solid rgba(168, 85, 247, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-messages-flow {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .chat-bubble {
+            max-width: 65%;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-size: 1rem;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .chat-bubble.mine {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        .chat-bubble.theirs {
+            align-self: flex-start;
+            background: rgba(30, 15, 60, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            color: #f1f5f9;
+        }
+
+        .chat-sender-tag {
+            font-size: 0.75rem;
+            color: #d8b4fe;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .chat-time-tag {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .chat-input-bar {
+            padding: 16px 20px;
+            background: rgba(11, 5, 30, 0.9);
+            border-top: 1.5px solid rgba(168, 85, 247, 0.3);
+            display: flex;
+            gap: 12px;
+        }
+
+        /* 7. ADMIN PANEL MODAL & TABS */
+        .admin-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(6px);
+            background: rgba(3, 1, 10, 0.85);
+            backdrop-filter: blur(8px);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            padding: 16px;
+            padding: 20px;
         }
 
-        .modal-overlay.active {
+        .admin-modal-overlay.active {
             display: flex;
         }
 
-        .modal-box {
-            background: #ffffff;
-            border-radius: 18px;
+        .admin-box {
+            background: #0f0728;
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+            border-radius: 20px;
             width: 100%;
-            max-width: 580px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
-            animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .modal-box.modal-wide {
-            max-width: 760px;
-        }
-
-        /* Admin Navigation Tabs */
-        .admin-nav-tabs {
+            max-width: 950px;
+            max-height: 90vh;
             display: flex;
-            background: #f1f5f9;
-            padding: 4px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            gap: 6px;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .admin-modal-header {
+            padding: 20px 26px;
+            border-bottom: 1.5px solid rgba(168, 85, 247, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(22, 11, 48, 0.6);
+        }
+
+        .admin-tabs-bar {
+            display: flex;
+            background: rgba(11, 5, 30, 0.8);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.25);
+            padding: 0 20px;
+            overflow-x: auto;
         }
 
         .admin-tab-btn {
-            flex: 1;
-            padding: 9px 12px;
-            border: none;
             background: transparent;
-            font-size: 0.88rem;
+            border: none;
+            color: #94a3b8;
+            padding: 14px 20px;
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--text-muted);
-            border-radius: 9px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
         }
 
         .admin-tab-btn.active {
-            background: #ffffff;
-            color: var(--primary);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            color: #c084fc;
+            border-bottom-color: #a855f7;
+            text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
         }
 
-        @keyframes modalPop {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--text-muted);
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .close-btn:hover {
-            background: #f1f5f9;
-            color: var(--text-main);
-        }
-
-        .modal-body {
+        .admin-tab-content {
             padding: 24px;
-            max-height: 80vh;
             overflow-y: auto;
+            flex: 1;
+            display: none;
         }
 
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
+        .admin-tab-content.active {
             display: block;
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--text-main);
         }
 
-        .form-control {
-            width: 100%;
-            padding: 11px 14px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
-        }
-
-        /* Bill Summary in Checkout */
-        .bill-card {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .bill-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            color: var(--text-muted);
-        }
-
-        .bill-row.total {
-            border-top: 1px dashed var(--border);
-            padding-top: 10px;
-            margin-top: 10px;
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #0f172a;
-        }
-
-        .delivery-note {
-            font-size: 0.8rem;
-            color: #b91c1c;
-            background: #fef2f2;
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Admin Tab Styling */
-        .admin-auth-panel {
-            background: #f1f5f9;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .admin-badge {
-            background: #1e293b;
-            color: #f8fafc;
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 700;
-        }
-
-        /* Order Success toast/alert */
-        .success-box {
-            background: #ecfdf5;
-            border: 1px solid #a7f3d0;
-            padding: 24px;
-            border-radius: 16px;
-            text-align: center;
-            color: #065f46;
-        }
-
-        .success-box h4 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
-
-        footer {
-            margin-top: auto;
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 32px 20px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        footer strong {
-            color: #ffffff;
+        /* Responsive */
+        @media (max-width: 900px) {
+            .app-layout {
+                flex-direction: column;
+            }
+            .neon-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1.5px solid rgba(168, 85, 247, 0.35);
+            }
+            .cart-grid-wrap {
+                grid-template-columns: 1fr;
+            }
+            .game-canvas-split {
+                flex-direction: column;
+            }
+            .divider-line {
+                width: 100%;
+                height: 4px;
+            }
+            .picture-box {
+                width: 100%;
+                max-width: 420px;
+                height: 380px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Karachi Notice Bar -->
-    <div class="announcement-bar">
-        <span class="announcement-badge">Notice</span>
-        <span>🚚 <strong>Delivery Available Only in Karachi!</strong> (Same day & next day dispatch)</span>
-    </div>
-
-    <!-- 2. Header -->
-    <header>
-        <div class="brand-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-            <span>✨</span>
-            <div>Your Dream <span>Shop</span></div>
+<div class="app-layout">
+    <!-- NEON PURPLE SIDEBAR -->
+    <aside class="neon-sidebar">
+        <!-- Brand Header with Crown -->
+        <div class="brand-header">
+            <div class="brand-crown"><i class="fa-solid fa-crown"></i></div>
+            <div class="brand-title">Official Web</div>
+            <div class="brand-subline">
+                <span class="line"></span>
+                <i class="fa-solid fa-diamond gem"></i>
+                <span class="line"></span>
+            </div>
         </div>
 
-        <div class="nav-actions">
-            <!-- Normal users won't see Admin button at all -->
-            <button class="btn btn-outline" id="adminPortalBtn" style="display: none;" onclick="openAdminModal()">
-                ⚡ Admin Panel
+        <!-- 8 Menu Items -->
+        <nav class="sidebar-menu">
+            <button class="menu-item-btn active" id="btn-home" onclick="showScreen('home')">
+                <div class="left-wrap">
+                    <i class="fa-solid fa-house menu-icon"></i>
+                    <span>Home</span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron-icon"></i>
             </button>
 
-            <!-- Auth Action (Sign In / Account Profile) -->
-            <div id="authContainer" style="display: inline-flex; align-items: center; gap: 8px;">
-                <button class="btn btn-outline" id="signInBtn" onclick="openLoginModal()" style="display: inline-flex; align-items: center; gap: 6px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.56 0 2.97.55 4.09 1.45l3.07-3.07C17.3 1.63 14.82 1 12 1 7.47 1 3.6 3.56 1.7 7.28l3.66 2.84C6.24 7.37 8.88 5 12 5z"/><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.71 2.88c2.16-2 3.71-4.94 3.71-8.7z"/><path fill="#FBBC05" d="M5.36 14.88C5.13 14.19 5 13.45 5 12.67s.13-1.52.36-2.21L1.7 7.62C.62 9.77 0 12.18 0 14.67s.62 4.9 1.7 7.05l3.66-2.84z"/><path fill="#34A853" d="M12 23.67c3.24 0 5.95-1.08 7.93-2.91l-3.71-2.88c-1.07.72-2.45 1.15-4.22 1.15-3.12 0-5.76-2.37-6.64-5.12L1.7 16.75C3.6 20.44 7.47 23.67 12 23.67z"/></svg>
-                    <span>Sign in</span>
+            <button class="menu-item-btn" id="btn-mychannel" onclick="showScreen('mychannel')">
+                <div class="left-wrap">
+                    <i class="fa-brands fa-youtube menu-icon" style="color: #ff0000; filter: drop-shadow(0 0 6px #ff0000);"></i>
+                    <span>My Channel</span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+            </button>
+
+            <button class="menu-item-btn" id="btn-shop" onclick="showScreen('shop')">
+                <div class="left-wrap">
+                    <i class="fa-solid fa-bag-shopping menu-icon"></i>
+                    <span>Shop</span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+            </button>
+
+            <button class="menu-item-btn" id="btn-games" onclick="showScreen('games')">
+                <div class="left-wrap">
+                    <i class="fa-solid fa-gamepad menu-icon"></i>
+                    <span>Games</span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+            </button>
+
+            <button class="menu-item-btn" id="btn-cart" onclick="showScreen('cart')">
+                <div class="left-wrap">
+                    <i class="fa-solid fa-cart-shopping menu-icon"></i>
+                    <span>Cart</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="badge-counter" id="cartCountBadge">0</span>
+                    <i class="fa-solid fa-chevron-right chevron-icon"></i>
+                </div>
+            </button>
+
+            <button class="menu-item-btn" id="btn-message" onclick="showScreen('message')">
+                <div class="left-wrap">
+                    <i class="fa-solid fa-envelope menu-icon"></i>
+                    <span>Message Ours</span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+            </button>
+
+            <button class="menu-item-btn" id="btn-google" onclick="handleGoogleAccountClick()">
+                <div class="left-wrap">
+                    <i class="fa-brands fa-google menu-icon"></i>
+                    <span id="googleMenuText">Google Account</span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+            </button>
+
+            <button class="menu-item-btn" id="btn-signout" onclick="handleSignOut()">
+                <div class="left-wrap">
+                    <i class="fa-solid fa-arrow-right-from-bracket menu-icon" style="color: #ef4444; filter: drop-shadow(0 0 6px #ef4444);"></i>
+                    <span>Sign Out</span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+            </button>
+        </nav>
+
+        <!-- Bottom Accent -->
+        <div class="sidebar-footer">
+            <i class="fa-solid fa-crown crown-accent"></i>
+        </div>
+    </aside>
+
+    <!-- MAIN VIEW AREA -->
+    <main class="main-content">
+        <!-- Top Navigation Bar -->
+        <div class="content-topbar">
+            <h1 class="top-screen-title" id="screenTitleHeading">
+                <i class="fa-solid fa-house" style="color: #a855f7;"></i> Home
+            </h1>
+
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <!-- Admin Access Button (visible when admin logs in) -->
+                <button class="glow-action-btn" id="adminControlBtn" style="display: none; padding: 8px 16px; font-size: 0.95rem;" onclick="openAdminPanel()">
+                    <i class="fa-solid fa-shield-halved"></i> Admin Panel
                 </button>
 
-                <div id="userProfileBadge" style="display: none; align-items: center; gap: 8px;">
-                    <span id="userEmailTag" style="font-size: 0.82rem; font-weight: 600; background: #e0f2fe; color: #0369a1; padding: 5px 10px; border-radius: 20px; border: 1px solid #bae6fd; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
-                    <button class="btn btn-outline" style="padding: 6px 10px; font-size: 0.8rem;" onclick="handleSignOut()" title="Log out">
-                        Logout
+                <!-- User Profile Pill -->
+                <div class="user-auth-pill" id="userProfilePill" onclick="handleGoogleAccountClick()" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="avatar" id="userAvatarImg">
+                    <div class="user-info">
+                        <span class="user-name" id="userNameLabel">Guest User</span>
+                        <span class="user-role" id="userRoleLabel">Click to Sign In</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. HOME VIEW -->
+        <section class="content-view active" id="view-home">
+            <div class="home-banner-box">
+                <div style="font-size: 4rem; color: #c084fc; margin-bottom: 12px; filter: drop-shadow(0 0 18px #a855f7);">
+                    <i class="fa-solid fa-hand-pointer"></i>
+                </div>
+                <h2 class="home-instruction-heading">Choose Your Button</h2>
+                <p class="home-subtitle">
+                    Welcome to the <strong>Official Web Neon Portal</strong>. Please choose an option from the neon sidebar menu on the left to start exploring.
+                </p>
+                <div class="home-quick-actions">
+                    <button class="glow-action-btn" onclick="showScreen('shop')">
+                        <i class="fa-solid fa-bag-shopping"></i> Explore Shop
+                    </button>
+                    <button class="glow-action-btn" onclick="showScreen('games')">
+                        <i class="fa-solid fa-gamepad"></i> Play 10 Differences
+                    </button>
+                    <button class="glow-action-btn" onclick="showScreen('mychannel')">
+                        <i class="fa-brands fa-youtube"></i> YouTube Channel
                     </button>
                 </div>
             </div>
+        </section>
 
-            <button class="btn btn-primary cart-indicator" onclick="openCartModal()">
-                🛒 Cart
-                <span class="badge-count" id="cartCount">0</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- 3. Hero Section -->
-    <section class="hero">
-        <h1>Welcome to <span class="highlight">Your Dream Shop</span></h1>
-        <p>Premium quality items at your doorstep with superfast verified delivery.</p>
-        <div class="karachi-notice">
-            <span>📍</span>
-            <span>Important: We strictly deliver only within <strong>Karachi</strong> city limits.</span>
-        </div>
-    </section>
-
-    <!-- 4. Products Container -->
-    <main class="container">
-        <div class="section-header">
-            <div>
-                <h2 class="section-title">Available Products</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Flat TCS Courier Delivery: Rs. 250 all over Karachi</p>
+        <!-- 2. MY CHANNEL VIEW -->
+        <section class="content-view" id="view-mychannel">
+            <div class="channel-container">
+                <i class="fa-brands fa-youtube" style="font-size: 5rem; color: #ff0000; filter: drop-shadow(0 0 25px rgba(255,0,0,0.8));"></i>
+                <h2 style="font-family: 'Orbitron'; font-size: 2.4rem; color: #ffffff; margin-top: 15px;">i.hplayz Official Channel</h2>
+                <p style="color: #cbd5e1; font-size: 1.2rem; max-width: 600px; margin-top: 8px;">
+                    Watch high-energy gameplay, exclusive tutorials, and live streams on YouTube!
+                </p>
+                <a href="https://www.youtube.com/@i.hplayz" target="_blank" rel="noopener noreferrer" class="yt-huge-btn">
+                    <i class="fa-brands fa-youtube"></i> Visit @i.hplayz
+                </a>
             </div>
-            <div id="productCounter" style="font-weight: 600; color: var(--primary);">Showing 0 items</div>
-        </div>
+        </section>
 
-        <div class="product-grid" id="productGrid">
-            <!-- Dynamic Products Injected via JS -->
-        </div>
-    </main>
-
-    <!-- 5. Cart / Checkout Modal -->
-    <div class="modal-overlay" id="checkoutModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3>🛍️ Checkout & Place Order</h3>
-                <button class="close-btn" onclick="closeModal('checkoutModal')">&times;</button>
-            </div>
-            <div class="modal-body" id="checkoutContent">
-                <!-- Injected via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- 5.5 Google Sign-In Modal -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-box" style="max-width: 400px; text-align: center;">
-            <div class="modal-header">
-                <h3>Sign in to Account</h3>
-                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
-            </div>
-            <div class="modal-body" style="padding: 24px 20px;">
-                <div style="margin-bottom: 22px;">
-                    <div style="width: 52px; height: 52px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                        <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.56 0 2.97.55 4.09 1.45l3.07-3.07C17.3 1.63 14.82 1 12 1 7.47 1 3.6 3.56 1.7 7.28l3.66 2.84C6.24 7.37 8.88 5 12 5z"/><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.71 2.88c2.16-2 3.71-4.94 3.71-8.7z"/><path fill="#FBBC05" d="M5.36 14.88C5.13 14.19 5 13.45 5 12.67s.13-1.52.36-2.21L1.7 7.62C.62 9.77 0 12.18 0 14.67s.62 4.9 1.7 7.05l3.66-2.84z"/><path fill="#34A853" d="M12 23.67c3.24 0 5.95-1.08 7.93-2.91l-3.71-2.88c-1.07.72-2.45 1.15-4.22 1.15-3.12 0-5.76-2.37-6.64-5.12L1.7 16.75C3.6 20.44 7.47 23.67 12 23.67z"/></svg>
-                    </div>
-                    <h4 style="margin: 0 0 4px 0; font-size: 1.1rem; color: #0f172a;">Sign in with Google</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Enter your Google account email & password</p>
+        <!-- 3. SHOP VIEW -->
+        <section class="content-view" id="view-shop">
+            <div class="shop-controls">
+                <div class="search-box-wrap">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #a855f7;"></i>
+                    <input type="text" id="shopSearchInput" placeholder="Search products..." oninput="filterProducts()">
                 </div>
-
-                <form onsubmit="handleAccountLogin(event)" style="text-align: left;">
-                    <div class="form-group" style="margin-bottom: 14px;">
-                        <label style="font-size: 0.85rem; font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Email Address</label>
-                        <input type="email" id="loginEmailInput" class="form-control" placeholder="name@gmail.com" required autocomplete="email">
-                    </div>
-
-                    <div class="form-group" style="margin-bottom: 18px;">
-                        <label style="font-size: 0.85rem; font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Password</label>
-                        <input type="password" id="loginPasswordInput" class="form-control" placeholder="••••••••" required autocomplete="current-password">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 11px;">
-                        Sign In
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. Admin Portal Modal -->
-    <div class="modal-overlay" id="adminModal">
-        <div class="modal-box modal-wide">
-            <div class="modal-header">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <h3>⚡ Admin Control Panel</h3>
-                    <span class="admin-badge">Management</span>
-                </div>
-                <button class="close-btn" onclick="closeModal('adminModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!-- Admin Dashboard View -->
-                <div id="adminPanelView">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px;">
-                        <span style="font-weight:700; font-size:0.95rem; color:#0f172a;">Admin Mode Active (ismail51029sep@gmail.com)</span>
-                        <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8rem;" onclick="logoutAdmin()">Logout</button>
-                    </div>
-
-                    <!-- 3 Options Tabs -->
-                    <div class="admin-nav-tabs">
-                        <button class="admin-tab-btn active" id="tabBtnAdd" onclick="switchAdminTab('add')">
-                            ➕ Add Product
-                        </button>
-                        <button class="admin-tab-btn" id="tabBtnStock" onclick="switchAdminTab('stock')">
-                            🏷️ Stock Manager
-                        </button>
-                        <button class="admin-tab-btn" id="tabBtnOrders" onclick="switchAdminTab('orders')">
-                            📦 Orders (<span id="ordersCountBadge">0</span>)
-                        </button>
-                        <button class="admin-tab-btn" id="tabBtnDelete" onclick="switchAdminTab('delete')">
-                            🗑️ Delete
-                        </button>
-                    </div>
-
-                    <!-- TAB 1: Add Product -->
-                    <div id="tabContentAdd">
-                        <form id="addProductForm" onsubmit="handleProductAdd(event)">
-                            <div class="form-group">
-                                <label>Product Title / Name *</label>
-                                <input type="text" id="newProdTitle" class="form-control" placeholder="e.g. Wireless Noise Canceling Headphones" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Price (PKR) *</label>
-                                <input type="number" id="newProdPrice" class="form-control" placeholder="e.g. 2500" min="1" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Category *</label>
-                                <select id="newProdCategory" class="form-control" required>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Fashion">Fashion & Apparel</option>
-                                    <option value="Home & Kitchen">Home & Kitchen</option>
-                                    <option value="Accessories">Accessories</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Image URL</label>
-                                <input type="url" id="newProdImage" class="form-control" placeholder="https://images.unsplash.com/...">
-                                <small style="color:var(--text-muted); font-size:0.75rem;">Leave empty for high-res placeholder image.</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea id="newProdDesc" class="form-control" rows="2" placeholder="Brief specs or details"></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Add Product to Shop</button>
-                        </form>
-                    </div>
-
-                    <!-- TAB 2: Customer Orders -->
-                    <div id="tabContentOrders" style="display: none;">
-                        <div id="ordersListContainer">
-                            <!-- Injected via JS -->
-                        </div>
-                    </div>
-
-                    <!-- TAB: Stock Manager -->
-                    <div id="tabContentStock" style="display: none;">
-                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
-                            Toggle any item to mark it <strong>In Stock</strong> or <strong>Out of Stock</strong>.
-                        </p>
-                        <div id="stockProductsListContainer">
-                            <!-- Injected via JS -->
-                        </div>
-                    </div>
-
-                    <!-- TAB 3: Delete Product -->
-                    <div id="tabContentDelete" style="display: none;">
-                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
-                            Click delete on any product to remove it from the store permanently.
-                        </p>
-                        <div id="deleteProductsListContainer">
-                            <!-- Injected via JS -->
-                        </div>
-                    </div>
+                <div style="color: #cbd5e1; font-weight: 700;">
+                    Showing <span id="productCountNum" style="color: #c084fc;">4</span> products
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- 7. Order Confirmation Modal -->
-    <div class="modal-overlay" id="orderSuccessModal">
-        <div class="modal-box">
-            <div class="modal-body" id="orderSuccessDetails">
-                <!-- Dynamic Invoice Info -->
+            <div class="product-grid" id="productGridContainer">
+                <!-- Injected via JavaScript -->
             </div>
-        </div>
-    </div>
+        </section>
 
-    <footer>
-        <p><strong>Your Dream Shop</strong> &copy; 2026. Strictly operating in Karachi, Sindh, Pakistan.</p>
-        <p style="font-size: 0.8rem; margin-top: 6px; color: #64748b;">Customer Helpline & Support Available 24/7</p>
-    </footer>
-
-    <script>
-        // Constants & Configuration
-        const MAX_QTY_PER_PRODUCT = 3; // Maximum 3 items allowed per product
-        const TCS_DELIVERY_CHARGE = 250; // Standard Flat TCS Courier Charges Karachi
-
-        // Karachi TCS Delivery Coverage Zones
-        const KARACHI_AREAS = [
-            { name: "North Nazimabad (All Blocks A-W)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Nazimabad & Golimar", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Federal B Area (Blocks 1-22)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "New Karachi & Buffer Zone", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "North Karachi & Power House", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Gulshan-e-Iqbal (Blocks 1-19)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Gulistan-e-Jauhar (Blocks 1-20)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "DHA (Defence Phases 1-8)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Clifton (Blocks 1-9 & Sea View)", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "PECHS / Tariq Road / Bahadurabad", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Saddar / Preedy / Tower / I.I Chundrigar", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Liaquatabad / Dak Khana", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Malir / Model Colony / Airport", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Korangi & Landhi", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "SITE Area & Orangi Town", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Scheme 33 & Gulshan-e-Maymar", fare: 250, desc: "TCS Express Delivery (~24-48 hrs)" },
-            { name: "Other Karachi Location (Confirmed on Call)", fare: 250, desc: "TCS Courier Service (~24-48 hrs)" }
-        ];
-
-        let selectedDeliveryArea = KARACHI_AREAS[0];
-
-        async function sha256(text) {
-            const buffer = new TextEncoder().encode(text);
-            const digest = await crypto.subtle.digest('SHA-256', buffer);
-            return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // Shared Global Products Storage Key (versioned so changes are cleanly isolated)
-        const PRODUCTS_KEY = 'yds_cloud_products_v3';
-        const GITHUB_REPO_RAW = 'https://raw.githubusercontent.com/ismail2015sep/ecommerce-store/main/products.json';
-        const GITHUB_REPO_API = 'https://api.github.com/repos/ismail2015sep/ecommerce-store/contents/products.json';
-        const _k = ['gho_0EAGsxFLIwSgj', 'GT57ktgRTMLKAL2084fVpvf'].join('');
-
-        const defaultProducts = [
-            {
-                id: 1,
-                name: "Ultra Sound Pro Wireless Earbuds",
-                category: "Electronics",
-                price: 2999,
-                description: "Crystal clear sound with 30-hour battery life & ENC microphone.",
-                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80",
-                outOfStock: false
-            },
-            {
-                id: 2,
-                name: "Karachi Heritage Chrono Watch",
-                category: "Accessories",
-                price: 4500,
-                description: "Stainless steel luxury water-resistant everyday smart timepiece.",
-                image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80",
-                outOfStock: false
-            },
-            {
-                id: 3,
-                name: "Urban Minimalist Oxford Backpack",
-                category: "Fashion",
-                price: 2200,
-                description: "Waterproof laptop compartment bag perfect for office & travel.",
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80",
-                outOfStock: false
-            },
-            {
-                id: 4,
-                name: "Smart LED Desk Lamp with Wireless Charger",
-                category: "Home & Kitchen",
-                price: 3499,
-                description: "Adjustable 3-tone color temperature with fast mobile charging pad.",
-                image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80",
-                outOfStock: false
-            }
-        ];
-
-        // State Management
-        let products = JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || defaultProducts;
-        let cart = JSON.parse(localStorage.getItem('dream_shop_cart')) || [];
-        let orders = JSON.parse(localStorage.getItem('dream_shop_orders')) || [];
-        
-        // Admin & Google Auth State
-        const ADMIN_EMAIL = 'ismail51029sep@gmail.com';
-        let currentAuthUser = JSON.parse(localStorage.getItem('yds_auth_user')) || null;
-        let isAdminLoggedIn = false;
-
-        // Fetch Live Products from Server / GitHub on load so ALL devices stay synchronized
-        async function fetchLiveProducts() {
-            try {
-                const res = await fetch(`products.json?t=${Date.now()}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data) && data.length > 0) {
-                        products = data;
-                        localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
-                        renderProducts();
-                        return;
-                    }
-                }
-            } catch (err) {
-                console.log("Local fetch failed, falling back to raw github:", err);
-            }
-
-            try {
-                const res = await fetch(`${GITHUB_REPO_RAW}?t=${Date.now()}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data) && data.length > 0) {
-                        products = data;
-                        localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
-                        renderProducts();
-                    }
-                }
-            } catch (e) {
-                console.log("Remote live sync error:", e);
-            }
-        }
-
-        // Save products locally and push directly to GitHub so ALL devices see updates instantly
-        async function saveProducts(showNotification = false) {
-            localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
-            syncProductsToCloud(showNotification);
-        }
-
-        async function syncProductsToCloud(showAlert = false) {
-            try {
-                // Get current SHA
-                const getRes = await fetch(GITHUB_REPO_API, {
-                    headers: { 'Authorization': `Bearer ${_k}` }
-                });
-                let sha = null;
-                if (getRes.ok) {
-                    const getJson = await getRes.json();
-                    sha = getJson.sha;
-                }
-
-                const jsonStr = JSON.stringify(products, null, 2);
-                const utf8Bytes = new TextEncoder().encode(jsonStr);
-                let binaryStr = '';
-                utf8Bytes.forEach(b => binaryStr += String.fromCharCode(b));
-                const b64 = btoa(binaryStr);
-
-                const bodyPayload = {
-                    message: "Update products catalog via Admin Portal",
-                    content: b64
-                };
-                if (sha) bodyPayload.sha = sha;
-
-                const putRes = await fetch(GITHUB_REPO_API, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `Bearer ${_k}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(bodyPayload)
-                });
-
-                if (putRes.ok) {
-                    console.log("Products successfully synchronized across all devices via Cloud!");
-                    if (showAlert) alert("✅ Live Database update ho gaya hai! Tamam mobiles aur browsers par ye update publish ho chuki hai.");
-                }
-            } catch (err) {
-                console.error("Cloud sync failed:", err);
-            }
-        }
-
-        function saveOrders() {
-            localStorage.setItem('dream_shop_orders', JSON.stringify(orders));
-            updateOrdersBadge();
-        }
-
-        function updateOrdersBadge() {
-            const badge = document.getElementById('ordersCountBadge');
-            if (badge) badge.innerText = orders.length;
-        }
-
-        function saveCart() {
-            localStorage.setItem('dream_shop_cart', JSON.stringify(cart));
-            updateCartCounter();
-        }
-
-        function updateCartCounter() {
-            const countElem = document.getElementById('cartCount');
-            const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-            countElem.innerText = totalQty;
-        }
-
-        // Render Product Cards
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            const counter = document.getElementById('productCounter');
-            counter.innerText = `Showing ${products.length} items`;
-
-            if (products.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1;">
-                        <h3>No products found!</h3>
-                        <p>Use Admin Portal to add the first product.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            grid.innerHTML = products.map(prod => {
-                const isOutOfStock = Boolean(prod.outOfStock);
-                return `
-                <div class="product-card ${isOutOfStock ? 'is-out-of-stock' : ''}" id="product-card-${prod.id}">
-                    <div class="product-img-wrapper">
-                        <img src="${prod.image || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600'}" alt="${prod.name}">
-                        <span class="category-tag">${prod.category}</span>
-                        ${isOutOfStock ? `<span class="stock-badge-out">Out of Stock</span>` : ''}
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${prod.name}</h3>
-                        <p class="product-desc">${prod.description || 'Verified authentic product with warranty.'}</p>
-                        <div class="product-pricing">
-                            <span class="price-val">Rs. ${prod.price.toLocaleString()}</span>
-                            <span class="delivery-pill">📦 TCS Express Delivery</span>
-                        </div>
-                        ${isOutOfStock ? `
-                            <button class="btn" style="width: 100%; justify-content: center; background: #e2e8f0; color: #64748b; cursor: not-allowed; font-weight: 700;" disabled>
-                                🚫 Currently Unavailable
-                            </button>
-                        ` : `
-                            <div class="product-action-row">
-                                <div class="card-qty-control">
-                                    <button class="card-qty-btn" type="button" onclick="changeCardQty(${prod.id}, -1)">−</button>
-                                    <input type="text" id="qty-input-${prod.id}" class="card-qty-input" value="1" readonly>
-                                    <button class="card-qty-btn" type="button" onclick="changeCardQty(${prod.id}, 1)">+</button>
-                                </div>
-                                <button class="btn btn-primary" style="flex: 1; justify-content: center;" onclick="addToCartWithQty(${prod.id})">
-                                    🛒 Add To Cart
-                                </button>
-                            </div>
-                        `}
-                    </div>
+        <!-- 4. GAMES VIEW - 10 Differences Game -->
+        <section class="content-view" id="view-games">
+            <div class="game-header-bar">
+                <div class="stat-counter-box">
+                    <div class="label">Total Differences</div>
+                    <div class="number">10</div>
                 </div>
-            `}).join('');
-        }
+                <div class="stat-counter-box">
+                    <div class="label">Found Differences</div>
+                    <div class="number green" id="diffFoundCount">0</div>
+                </div>
+                <div class="stat-counter-box">
+                    <div class="label">Remaining Differences</div>
+                    <div class="number" id="diffRemainingCount" style="color: #ec4899; text-shadow: 0 0 12px #ec4899;">10</div>
+                </div>
+                <button class="glow-action-btn" onclick="resetDifferenceGame()" style="padding: 10px 18px; font-size: 0.95rem;">
+                    <i class="fa-solid fa-rotate-right"></i> Restart Game
+                </button>
+            </div>
 
-        // Inline Card Quantity Controls (Capped at MAX 3)
-        function changeCardQty(productId, delta) {
-            const input = document.getElementById(`qty-input-${productId}`);
-            if (!input) return;
-            let current = parseInt(input.value) || 1;
-            current += delta;
-            if (current < 1) current = 1;
-            if (current > MAX_QTY_PER_PRODUCT) {
-                alert(`⚠️ Ek product ki quantity ${MAX_QTY_PER_PRODUCT} se zyada nahi ho sakti.`);
-                current = MAX_QTY_PER_PRODUCT;
-            }
-            input.value = current;
-        }
+            <!-- Side-by-side spot-the-difference with center glowing line -->
+            <div class="game-canvas-split">
+                <!-- Left Picture (Reference Image) -->
+                <div class="picture-box" id="picBoxLeft">
+                    <svg viewBox="0 0 460 480" class="picture-svg" id="svgLeft">
+                        <!-- Neon Cyberpunk City Reference Scene -->
+                        <rect width="460" height="480" fill="#09041a"/>
+                        <!-- Starry / Grid background -->
+                        <circle cx="60" cy="50" r="1.5" fill="#a855f7"/>
+                        <circle cx="150" cy="80" r="2" fill="#ec4899"/>
+                        <circle cx="340" cy="40" r="1.8" fill="#38bdf8"/>
+                        <circle cx="410" cy="95" r="2.2" fill="#ffffff"/>
 
-        function addToCartWithQty(productId) {
-            const input = document.getElementById(`qty-input-${productId}`);
-            const qty = input ? (parseInt(input.value) || 1) : 1;
-            addToCart(productId, qty);
-        }
+                        <!-- Moon / Sun -->
+                        <circle cx="380" cy="110" r="45" fill="none" stroke="#ec4899" stroke-width="4" filter="drop-shadow(0 0 10px #ec4899)"/>
+                        <circle cx="380" cy="110" r="38" fill="#581c87" opacity="0.4"/>
 
-        // Cart Actions (Enforcing Maximum 3 Qty per product)
-        function addToCart(productId, quantityToAdd = 1) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            if (product.outOfStock) {
-                alert("Maazrat! Yeh product is waqt Out of Stock hai.");
-                return;
-            }
+                        <!-- Neon Buildings Background -->
+                        <rect x="30" y="220" width="75" height="260" fill="#13092b" stroke="#7c3aed" stroke-width="2"/>
+                        <rect x="125" y="160" width="90" height="320" fill="#1c0d3d" stroke="#a855f7" stroke-width="2"/>
+                        <rect x="235" y="240" width="80" height="240" fill="#150a30" stroke="#ec4899" stroke-width="2"/>
+                        <rect x="335" y="190" width="95" height="290" fill="#190d38" stroke="#38bdf8" stroke-width="2"/>
 
-            const existingIndex = cart.findIndex(item => item.id === productId);
-            if (existingIndex > -1) {
-                const newQty = cart[existingIndex].quantity + quantityToAdd;
-                if (newQty > MAX_QTY_PER_PRODUCT) {
-                    alert(`⚠️ Maazrat! Is product ki zyada se zyada ${MAX_QTY_PER_PRODUCT} items order kar sakte hain.`);
-                    cart[existingIndex].quantity = MAX_QTY_PER_PRODUCT;
-                } else {
-                    cart[existingIndex].quantity = newQty;
-                }
-            } else {
-                const addQty = Math.min(quantityToAdd, MAX_QTY_PER_PRODUCT);
-                cart.push({ ...product, quantity: addQty });
-            }
-            saveCart();
-            openCartModal();
-        }
+                        <!-- Windows Left Side -->
+                        <rect x="145" y="190" width="16" height="22" fill="#fbbf24"/>
+                        <rect x="175" y="190" width="16" height="22" fill="#fbbf24"/>
+                        <rect x="145" y="230" width="16" height="22" fill="#fbbf24"/>
+                        <rect x="175" y="230" width="16" height="22" fill="#38bdf8"/>
 
-        function updateQuantity(productId, delta) {
-            const itemIndex = cart.findIndex(i => i.id === productId);
-            if (itemIndex > -1) {
-                const newQty = cart[itemIndex].quantity + delta;
-                if (newQty > MAX_QTY_PER_PRODUCT) {
-                    alert(`⚠️ Ek product ki limit sirf ${MAX_QTY_PER_PRODUCT} items hai.`);
-                    return;
-                }
-                cart[itemIndex].quantity = newQty;
-                if (cart[itemIndex].quantity <= 0) {
-                    cart.splice(itemIndex, 1);
-                }
-                saveCart();
-                renderCartModal();
-            }
-        }
+                        <!-- Spot 1: Neon Billboard Sign -->
+                        <rect x="135" y="290" width="70" height="30" rx="6" fill="#7c3aed" stroke="#c084fc" stroke-width="2"/>
+                        <text x="170" y="311" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle" font-family="'Orbitron'">NEON</text>
 
-        function openCartModal() {
-            renderCartModal();
-            document.getElementById('checkoutModal').classList.add('active');
-        }
+                        <!-- Spot 2: Antenna Flag on left tower -->
+                        <line x1="68" y1="220" x2="68" y2="175" stroke="#a855f7" stroke-width="3"/>
+                        <polygon points="68,175 92,185 68,195" fill="#ec4899"/>
 
-        function onAreaChange(areaIndex) {
-            selectedDeliveryArea = KARACHI_AREAS[areaIndex] || KARACHI_AREAS[0];
-            renderCartModal();
-        }
+                        <!-- Spot 3: Flying car / Drone -->
+                        <rect x="230" y="90" width="45" height="14" rx="7" fill="#38bdf8" filter="drop-shadow(0 0 6px #38bdf8)"/>
+                        <circle cx="242" cy="107" r="4" fill="#fbbf24"/>
+                        <circle cx="263" cy="107" r="4" fill="#fbbf24"/>
 
-        function renderCartModal() {
-            const content = document.getElementById('checkoutContent');
-            if (cart.length === 0) {
-                content.innerHTML = `
-                    <div class="empty-state">
-                        <div style="font-size:3rem; margin-bottom:12px;">🛍️</div>
-                        <h3>Your Cart is Empty</h3>
-                        <p>Browse our products and add them to your cart.</p>
-                        <button class="btn btn-primary" style="margin-top:16px;" onclick="closeModal('checkoutModal')">Continue Shopping</button>
-                    </div>
-                `;
-                return;
-            }
+                        <!-- Spot 4: Center Road Streetlight -->
+                        <line x1="225" y1="380" x2="225" y2="460" stroke="#94a3b8" stroke-width="4"/>
+                        <circle cx="225" cy="375" r="12" fill="#fbbf24" filter="drop-shadow(0 0 10px #fbbf24)"/>
 
-            const itemsTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const deliveryCharge = selectedDeliveryArea.fare;
-            const grandTotal = itemsTotal + deliveryCharge;
+                        <!-- Spot 5: Cloud in sky -->
+                        <ellipse cx="100" cy="110" rx="35" ry="14" fill="#3b0764" stroke="#a855f7" stroke-width="1.5"/>
 
-            const areaOptionsHtml = KARACHI_AREAS.map((a, idx) => `
-                <option value="${idx}" ${a.name === selectedDeliveryArea.name ? 'selected' : ''}>
-                    ${a.name} — Rs. ${a.fare} (TCS Courier)
-                </option>
-            `).join('');
+                        <!-- Spot 6: Crown graffiti on right building -->
+                        <polygon points="360,250 370,230 380,245 390,230 400,250" fill="#a855f7"/>
 
-            content.innerHTML = `
-                <div style="max-height: 190px; overflow-y:auto; margin-bottom:14px; padding-right:4px;">
-                    ${cart.map(item => `
-                        <div style="display:flex; justify-content:space-between; align-items:center; padding: 8px 0; border-bottom: 1px solid var(--border);">
-                            <div>
-                                <div style="font-weight:700; font-size:0.92rem;">${item.name}</div>
-                                <div style="color:var(--text-muted); font-size:0.8rem;">Rs. ${item.price.toLocaleString()} each (Max 3)</div>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <button class="btn btn-outline" style="padding: 2px 8px; font-size:0.8rem;" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <span style="font-weight:700; min-width: 20px; text-align: center;">${item.quantity}</span>
-                                <button class="btn btn-outline" style="padding: 2px 8px; font-size:0.8rem;" onclick="updateQuantity(${item.id}, 1)">+</button>
-                            </div>
-                        </div>
-                    `).join('')}
+                        <!-- Spot 7: Green Tree Pot at ground -->
+                        <circle cx="50" cy="450" r="16" fill="#10b981" filter="drop-shadow(0 0 8px #10b981)"/>
+
+                        <!-- Spot 8: Star on Building 3 -->
+                        <polygon points="275,270 279,282 292,282 281,289 285,301 275,293 265,301 269,289 258,282 271,282" fill="#facc15"/>
+
+                        <!-- Spot 9: Cyber satellite dish on roof -->
+                        <path d="M 360 190 A 25 25 0 0 1 395 165" stroke="#ec4899" stroke-width="4" fill="none"/>
+
+                        <!-- Spot 10: Digital Clock at ground road -->
+                        <rect x="280" y="420" width="60" height="22" rx="4" fill="#000000" stroke="#10b981" stroke-width="1.5"/>
+                        <text x="310" y="436" fill="#10b981" font-size="11" font-family="'Orbitron'" text-anchor="middle">10:24</text>
+                    </svg>
                 </div>
 
-                <!-- Karachi TCS Delivery Selector -->
-                <div class="area-select-box">
-                    <label style="font-size:0.85rem; font-weight:700; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                        <span>📍 Delivery Destination (TCS Karachi Courier Service)</span>
-                    </label>
-                    <select id="areaSelector" class="form-control" style="font-weight:600;" onchange="onAreaChange(this.value)">
-                        ${areaOptionsHtml}
-                    </select>
-                    <div class="fare-badge">
-                        <span>📦 TCS Courier Express:</span>
-                        <span><strong>Rs. ${deliveryCharge}</strong> • ${selectedDeliveryArea.desc}</span>
+                <!-- Center Divider Line -->
+                <div class="divider-line"></div>
+
+                <!-- Right Picture (Interactive 10 Differences Spot Picture) -->
+                <div class="picture-box" id="picBoxRight">
+                    <svg viewBox="0 0 460 480" class="picture-svg" id="svgRight">
+                        <!-- Same Neon Cyberpunk Base -->
+                        <rect width="460" height="480" fill="#09041a"/>
+                        <circle cx="60" cy="50" r="1.5" fill="#a855f7"/>
+                        <circle cx="150" cy="80" r="2" fill="#ec4899"/>
+                        <circle cx="340" cy="40" r="1.8" fill="#38bdf8"/>
+                        <circle cx="410" cy="95" r="2.2" fill="#ffffff"/>
+
+                        <!-- Moon / Sun -->
+                        <circle cx="380" cy="110" r="45" fill="none" stroke="#ec4899" stroke-width="4" filter="drop-shadow(0 0 10px #ec4899)"/>
+                        <circle cx="380" cy="110" r="38" fill="#581c87" opacity="0.4"/>
+
+                        <!-- Buildings -->
+                        <rect x="30" y="220" width="75" height="260" fill="#13092b" stroke="#7c3aed" stroke-width="2"/>
+                        <rect x="125" y="160" width="90" height="320" fill="#1c0d3d" stroke="#a855f7" stroke-width="2"/>
+                        <rect x="235" y="240" width="80" height="240" fill="#150a30" stroke="#ec4899" stroke-width="2"/>
+                        <rect x="335" y="190" width="95" height="290" fill="#190d38" stroke="#38bdf8" stroke-width="2"/>
+
+                        <!-- Windows -->
+                        <rect x="145" y="190" width="16" height="22" fill="#fbbf24"/>
+                        <rect x="175" y="190" width="16" height="22" fill="#fbbf24"/>
+                        <rect x="145" y="230" width="16" height="22" fill="#fbbf24"/>
+                        <rect x="175" y="230" width="16" height="22" fill="#38bdf8"/>
+
+                        <!-- DIFFERENCE 1: Billboard says "PLAY" instead of "NEON" -->
+                        <g class="diff-spot" onclick="clickDifference(1, 170, 305)" id="diff-elem-1">
+                            <rect x="135" y="290" width="70" height="30" rx="6" fill="#ec4899" stroke="#f472b6" stroke-width="2"/>
+                            <text x="170" y="311" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle" font-family="'Orbitron'">PLAY</text>
+                        </g>
+
+                        <!-- DIFFERENCE 2: Antenna Flag is Cyan & points opposite -->
+                        <g class="diff-spot" onclick="clickDifference(2, 68, 185)" id="diff-elem-2">
+                            <line x1="68" y1="220" x2="68" y2="175" stroke="#38bdf8" stroke-width="3"/>
+                            <polygon points="68,175 44,185 68,195" fill="#38bdf8"/>
+                        </g>
+
+                        <!-- DIFFERENCE 3: Drone is Pink with Red lights -->
+                        <g class="diff-spot" onclick="clickDifference(3, 252, 98)" id="diff-elem-3">
+                            <rect x="230" y="90" width="45" height="14" rx="7" fill="#ec4899" filter="drop-shadow(0 0 6px #ec4899)"/>
+                            <circle cx="242" cy="107" r="4" fill="#ef4444"/>
+                            <circle cx="263" cy="107" r="4" fill="#ef4444"/>
+                        </g>
+
+                        <!-- DIFFERENCE 4: Streetlight is Purple instead of Yellow -->
+                        <g class="diff-spot" onclick="clickDifference(4, 225, 415)" id="diff-elem-4">
+                            <line x1="225" y1="380" x2="225" y2="460" stroke="#c084fc" stroke-width="4"/>
+                            <circle cx="225" cy="375" r="12" fill="#a855f7" filter="drop-shadow(0 0 10px #a855f7)"/>
+                        </g>
+
+                        <!-- DIFFERENCE 5: Cloud has Lightning bolt inside -->
+                        <g class="diff-spot" onclick="clickDifference(5, 100, 110)" id="diff-elem-5">
+                            <ellipse cx="100" cy="110" rx="35" ry="14" fill="#4c1d95" stroke="#c084fc" stroke-width="1.5"/>
+                            <polygon points="98,103 104,103 97,113 103,113 95,121" fill="#facc15"/>
+                        </g>
+
+                        <!-- DIFFERENCE 6: Graffiti is a Diamond instead of Crown -->
+                        <g class="diff-spot" onclick="clickDifference(6, 380, 240)" id="diff-elem-6">
+                            <polygon points="380,225 395,240 380,255 365,240" fill="#38bdf8" filter="drop-shadow(0 0 6px #38bdf8)"/>
+                        </g>
+
+                        <!-- DIFFERENCE 7: Pot plant has a Red flower -->
+                        <g class="diff-spot" onclick="clickDifference(7, 50, 450)" id="diff-elem-7">
+                            <circle cx="50" cy="450" r="16" fill="#10b981"/>
+                            <circle cx="50" cy="442" r="7" fill="#ef4444" filter="drop-shadow(0 0 6px #ef4444)"/>
+                        </g>
+
+                        <!-- DIFFERENCE 8: Star is a Glowing Heart -->
+                        <g class="diff-spot" onclick="clickDifference(8, 275, 285)" id="diff-elem-8">
+                            <path d="M 275,295 A 6,6 0 0,1 267,283 A 6,6 0 0,1 275,276 A 6,6 0 0,1 283,283 A 6,6 0 0,1 275,295 Z" fill="#ec4899" filter="drop-shadow(0 0 8px #ec4899)"/>
+                        </g>
+
+                        <!-- DIFFERENCE 9: Cyber satellite dish is pointing in opposite direction -->
+                        <g class="diff-spot" onclick="clickDifference(9, 380, 178)" id="diff-elem-9">
+                            <path d="M 395 190 A 25 25 0 0 0 360 165" stroke="#38bdf8" stroke-width="4" fill="none"/>
+                        </g>
+
+                        <!-- DIFFERENCE 10: Clock shows 12:00 instead of 10:24 -->
+                        <g class="diff-spot" onclick="clickDifference(10, 310, 430)" id="diff-elem-10">
+                            <rect x="280" y="420" width="60" height="22" rx="4" fill="#000000" stroke="#ec4899" stroke-width="1.5"/>
+                            <text x="310" y="436" fill="#ec4899" font-size="11" font-family="'Orbitron'" text-anchor="middle">12:00</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CART VIEW -->
+        <section class="content-view" id="view-cart">
+            <div class="cart-grid-wrap">
+                <!-- Cart Items List -->
+                <div class="cart-items-card">
+                    <h2 style="font-family: 'Orbitron'; font-size: 1.5rem; margin-bottom: 20px; color: #ffffff;">
+                        <i class="fa-solid fa-cart-shopping" style="color: #a855f7;"></i> Your Shopping Bag
+                    </h2>
+
+                    <div id="cartItemsListContainer">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 15px; border-top: 1.5px solid rgba(168, 85, 247, 0.3);">
+                        <span style="font-size: 1.2rem; font-weight: 700; color: #cbd5e1;">Grand Total:</span>
+                        <span style="font-family: 'Orbitron'; font-size: 1.8rem; font-weight: 800; color: #38bdf8;" id="cartGrandTotalLabel">Rs 0</span>
                     </div>
                 </div>
 
-                <!-- Bill Calculations -->
-                <div class="bill-card" style="margin-bottom:16px;">
-                    <div class="bill-row">
-                        <span>Items Subtotal:</span>
-                        <span>Rs. ${itemsTotal.toLocaleString()}</span>
-                    </div>
-                    <div class="bill-row">
-                        <span>TCS Delivery Charges (${selectedDeliveryArea.name}):</span>
-                        <span style="font-weight:700; color:#b45309;">Rs. ${deliveryCharge}</span>
-                    </div>
-                    <div class="bill-row total">
-                        <span>Total Payable (COD):</span>
-                        <span style="color:var(--primary); font-size:1.25rem;">Rs. ${grandTotal.toLocaleString()}</span>
-                    </div>
-                </div>
-
-                <!-- Order Form -->
-                <form id="orderForm" onsubmit="processOrder(event, ${itemsTotal}, ${deliveryCharge}, ${grandTotal})">
-                    <div class="form-group">
-                        <label>Your Full Name *</label>
-                        <input type="text" id="custName" class="form-control" placeholder="e.g. Daniyal Khan" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Phone / WhatsApp Number * (Required for TCS Courier)</label>
-                        <input type="tel" id="custPhone" class="form-control" placeholder="03XXXXXXXXX (Active Call / WhatsApp)" pattern="[0-9]{11}" required title="Please enter an active 11-digit mobile number">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Complete House/Street Address *</label>
-                        <textarea id="custAddress" class="form-control" rows="2" placeholder="House / Flat No., Street No., Landmark (e.g. Near Famous Bakery / Mosque)" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem; justify-content: center;">
-                        Confirm Cash On Delivery Order (Rs. ${grandTotal.toLocaleString()})
-                    </button>
-                </form>
-            `;
-        }
-
-        // Process Checkout Order
-        function processOrder(e, subtotal, deliveryCharge, grandTotal) {
-            e.preventDefault();
-            const name = document.getElementById('custName').value.trim();
-            const phone = document.getElementById('custPhone').value.trim();
-            const address = document.getElementById('custAddress').value.trim();
-            const fullAddress = `${address}, Area: ${selectedDeliveryArea.name}, Karachi`;
-            const orderId = 'YDS-' + Math.floor(100000 + Math.random() * 900000);
-
-            const purchasedItems = [...cart];
-            const newOrder = {
-                id: orderId,
-                date: new Date().toLocaleString(),
-                customerName: name,
-                customerPhone: phone,
-                customerAddress: fullAddress,
-                area: selectedDeliveryArea.name,
-                items: purchasedItems,
-                subtotal: subtotal,
-                deliveryCharges: deliveryCharge,
-                grandTotal: grandTotal,
-                status: "Pending TCS Dispatch"
-            };
-
-            cart = [];
-            saveCart();
-            closeModal('checkoutModal');
-
-            // Show Confirmation Modal
-            const modalDetails = document.getElementById('orderSuccessDetails');
-            modalDetails.innerHTML = `
-                <div class="success-box">
-                    <div style="font-size:3rem; margin-bottom: 8px;">🎉</div>
-                    <h4>Order Placed Successfully!</h4>
-                    <p style="margin-bottom: 16px;">Aapka order receive ho gaya hai.</p>
-                    
-                    <div style="text-align: left; background:#ffffff; border-radius:12px; padding:16px; border:1px solid #d1fae5; font-size:0.9rem; margin-bottom:18px;">
-                        <div><strong>Order ID:</strong> ${orderId}</div>
-                        <div><strong>Customer Name:</strong> ${name}</div>
-                        <div><strong>Phone Number:</strong> ${phone}</div>
-                        <div><strong>Delivery Area:</strong> ${selectedDeliveryArea.name}</div>
-                        <div><strong>Full Address:</strong> ${address}</div>
-                        <div><strong>Courier Partner:</strong> TCS Express Courier</div>
-                        <hr style="margin: 8px 0; border: none; border-top: 1px solid #e5e7eb;">
-                        <div><strong>Total Items:</strong> ${purchasedItems.reduce((acc, i) => acc + i.quantity, 0)}</div>
-                        <div><strong>TCS Delivery Charges:</strong> Rs. ${deliveryCharge}</div>
-                        <div style="font-size:1.05rem; font-weight:800; color:#065f46; margin-top:4px;">
-                            <strong>Grand Total:</strong> Rs. ${grandTotal.toLocaleString()} (COD)
-                        </div>
-                    </div>
-
-                    <p style="font-size:0.85rem; color:#047857; margin-bottom:18px;">
-                        📦 Aapka parcel <strong>TCS Express Courier</strong> ke zariye dispatch kiya jayega aur delivery se pehle rider aapko <strong>${phone}</strong> par call karega.
+                <!-- Checkout Form (Orders Go to Admin Panel) -->
+                <div class="cart-checkout-card">
+                    <h3 style="font-family: 'Orbitron'; font-size: 1.4rem; margin-bottom: 15px; color: #c084fc;">
+                        <i class="fa-solid fa-truck-fast"></i> Place Your Order
+                    </h3>
+                    <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 20px;">
+                        Enter your delivery details. Your order will be sent straight to the <strong>Admin Panel</strong>!
                     </p>
 
-                    <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('orderSuccessModal')">
-                        Back to Shop
-                    </button>
-                </div>
-            `;
-            document.getElementById('orderSuccessModal').classList.add('active');
-        }
-
-        // Tab Switching in Admin
-        function switchAdminTab(tabName) {
-            // Update buttons
-            document.getElementById('tabBtnAdd').classList.toggle('active', tabName === 'add');
-            document.getElementById('tabBtnStock').classList.toggle('active', tabName === 'stock');
-            document.getElementById('tabBtnOrders').classList.toggle('active', tabName === 'orders');
-            document.getElementById('tabBtnDelete').classList.toggle('active', tabName === 'delete');
-
-            // Update tab contents
-            document.getElementById('tabContentAdd').style.display = (tabName === 'add') ? 'block' : 'none';
-            document.getElementById('tabContentStock').style.display = (tabName === 'stock') ? 'block' : 'none';
-            document.getElementById('tabContentOrders').style.display = (tabName === 'orders') ? 'block' : 'none';
-            document.getElementById('tabContentDelete').style.display = (tabName === 'delete') ? 'block' : 'none';
-
-            if (tabName === 'stock') renderAdminStockList();
-            if (tabName === 'orders') renderAdminOrders();
-            if (tabName === 'delete') renderAdminDeleteList();
-        }
-
-        // Render Stock Manager List in Admin
-        function renderAdminStockList() {
-            const container = document.getElementById('stockProductsListContainer');
-            if (products.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);">No products found to manage stock.</div>`;
-                return;
-            }
-
-            container.innerHTML = `
-                <div style="display:flex; flex-direction:column; gap:10px; max-height:380px; overflow-y:auto; padding-right:4px;">
-                    ${products.map(p => {
-                        const isOut = Boolean(p.outOfStock);
-                        return `
-                        <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; border:1px solid var(--border); padding:10px 14px; border-radius:10px;">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <img src="${p.image || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600'}" alt="${p.name}" style="width:44px; height:44px; object-fit:cover; border-radius:8px;">
-                                <div>
-                                    <div style="font-weight:700; font-size:0.9rem;">${p.name}</div>
-                                    <div style="font-size:0.78rem; color:var(--text-muted); display:flex; align-items:center; gap:6px;">
-                                        <span>Rs. ${p.price.toLocaleString()}</span> • 
-                                        <span style="font-weight:700; color:${isOut ? '#dc2626' : '#16a34a'};">
-                                            ${isOut ? '● Out of Stock' : '● In Stock'}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn" style="background:${isOut ? '#dcfce7' : '#fee2e2'}; color:${isOut ? '#16a34a' : '#dc2626'}; border:1px solid ${isOut ? '#bbf7d0' : '#fecaca'}; padding:6px 12px; font-size:0.8rem; font-weight:700;" onclick="toggleProductStock(${p.id})">
-                                ${isOut ? '✅ Mark In Stock' : '🚫 Mark Out of Stock'}
-                            </button>
+                    <form id="orderCheckoutForm" onsubmit="handlePlaceOrder(event)">
+                        <div class="neon-input-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="orderFullName" placeholder="e.g. Daniyal Khan" required>
                         </div>
-                    `}).join('')}
+
+                        <div class="neon-input-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="orderPhone" placeholder="0300-1234567" required>
+                        </div>
+
+                        <div class="neon-input-group">
+                            <label>Delivery Address *</label>
+                            <textarea id="orderAddress" rows="3" placeholder="Full street, area, city address" required></textarea>
+                        </div>
+
+                        <button type="submit" class="glow-action-btn" style="width: 100%; justify-content: center; padding: 16px; margin-top: 10px;">
+                            <i class="fa-solid fa-check-circle"></i> Confirm & Place Order
+                        </button>
+                    </form>
                 </div>
-            `;
-        }
+            </div>
+        </section>
 
-        function toggleProductStock(productId) {
-            const prod = products.find(p => p.id === productId);
-            if (!prod) return;
-            prod.outOfStock = !prod.outOfStock;
-            saveProducts(true);
-            renderProducts();
-            renderAdminStockList();
-        }
-
-        // Render Customer Orders in Admin
-        function renderAdminOrders() {
-            const container = document.getElementById('ordersListContainer');
-            updateOrdersBadge();
-
-            if (orders.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align:center; padding:30px 10px; color:var(--text-muted);">
-                        <div style="font-size:2.5rem; margin-bottom:8px;">📦</div>
-                        <h4>No customer orders yet!</h4>
-                        <p style="font-size:0.85rem;">When customers place orders with their phone number, they will appear here.</p>
+        <!-- 6. MESSAGE OURS VIEW -->
+        <section class="content-view" id="view-message">
+            <div class="chat-container-card">
+                <div class="chat-header">
+                    <div>
+                        <h3 style="font-family: 'Orbitron'; font-size: 1.3rem; color: #ffffff;">
+                            <i class="fa-solid fa-comments" style="color: #a855f7;"></i> Official Live Chat
+                        </h3>
+                        <span style="font-size: 0.85rem; color: #10b981;">
+                            <i class="fa-solid fa-circle" style="font-size: 0.65rem;"></i> Admin Online & Ready to Reply
+                        </span>
                     </div>
-                `;
-                return;
-            }
 
-            container.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                    <span style="font-size:0.88rem; font-weight:700;">Total Orders Received: ${orders.length}</span>
-                    <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem; color:#dc2626; border-color:#fecaca;" onclick="clearAllOrders()">Clear Orders History</button>
+                    <div id="chatAuthPromptBadge" style="font-size: 0.85rem; color: #c084fc;">
+                        Logged in as <strong id="chatUserNameTag">Guest</strong>
+                    </div>
                 </div>
-                <div style="display:flex; flex-direction:column; gap:14px; max-height:420px; overflow-y:auto; padding-right:4px;">
-                    ${orders.map(o => `
-                        <div style="background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:14px;">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                <div>
-                                    <span style="font-weight:800; color:var(--primary); font-size:0.95rem;">${o.id}</span>
-                                    <span style="font-size:0.75rem; color:var(--text-muted); margin-left:8px;">${o.date}</span>
-                                </div>
-                                <span style="font-size:0.75rem; background:#dbeafe; color:#1e40af; font-weight:700; padding:2px 8px; border-radius:6px;">
-                                    ${o.status}
-                                </span>
-                            </div>
 
-                            <div style="font-size:0.88rem; margin-bottom:6px;">
-                                👤 <strong>Customer:</strong> ${o.customerName} | 📞 <strong>Phone:</strong> <a href="tel:${o.customerPhone}" style="color:var(--primary); font-weight:700; text-decoration:none;">${o.customerPhone}</a>
-                            </div>
-
-                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">
-                                📍 <strong>Karachi Address:</strong> ${o.customerAddress}
-                            </div>
-
-                            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:8px 12px; font-size:0.82rem; margin-bottom:8px;">
-                                <strong>Ordered Items:</strong>
-                                <ul style="margin-left:18px; margin-top:4px;">
-                                    ${o.items.map(it => `<li>${it.name} &times; ${it.quantity} (Rs. ${(it.price * it.quantity).toLocaleString()})</li>`).join('')}
-                                </ul>
-                            </div>
-
-                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; font-weight:700;">
-                                <span>Delivery Fee (Karachi): Rs. ${o.deliveryCharges}</span>
-                                <span style="color:#059669; font-size:1.05rem;">Grand Total: Rs. ${o.grandTotal.toLocaleString()} (COD)</span>
-                            </div>
-                        </div>
-                    `).join('')}
+                <div class="chat-messages-flow" id="chatMessagesBox">
+                    <!-- Populated dynamically -->
                 </div>
-            `;
-        }
 
-        function clearAllOrders() {
-            if (confirm("Are you sure you want to clear all orders history?")) {
-                orders = [];
-                saveOrders();
-                renderAdminOrders();
-            }
-        }
+                <form class="chat-input-bar" onsubmit="handleSendChatMessage(event)">
+                    <input type="text" id="chatMessageInput" class="neon-input-group" style="margin: 0; flex: 1;" placeholder="Write your message to Admin..." required>
+                    <button type="submit" class="glow-action-btn" style="padding: 12px 24px;">
+                        <i class="fa-solid fa-paper-plane"></i> Send
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
 
-        // Render Delete Products List
-        function renderAdminDeleteList() {
-            const container = document.getElementById('deleteProductsListContainer');
-            if (products.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);">No products in store to delete.</div>`;
-                return;
-            }
+<!-- ================= 7. GOOGLE SIGN-IN MODAL ================= -->
+<div class="admin-modal-overlay" id="googleAuthModal">
+    <div class="admin-box" style="max-width: 480px;">
+        <div class="admin-modal-header">
+            <h3 style="font-family: 'Orbitron'; color: #ffffff;">
+                <i class="fa-brands fa-google" style="color: #ea4335;"></i> Google Account Sign In
+            </h3>
+            <button onclick="closeModal('googleAuthModal')" style="background: none; border: none; color: #cbd5e1; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
 
-            container.innerHTML = `
-                <div style="display:flex; flex-direction:column; gap:10px; max-height:380px; overflow-y:auto; padding-right:4px;">
-                    ${products.map(p => `
-                        <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; border:1px solid var(--border); padding:10px 14px; border-radius:10px;">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <img src="${p.image || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600'}" alt="${p.name}" style="width:44px; height:44px; object-fit:cover; border-radius:8px;">
-                                <div>
-                                    <div style="font-weight:700; font-size:0.9rem;">${p.name}</div>
-                                    <div style="font-size:0.78rem; color:var(--text-muted);">${p.category} • Rs. ${p.price.toLocaleString()}</div>
-                                </div>
-                            </div>
-                            <button class="btn" style="background:#fee2e2; color:#dc2626; border:1px solid #fecaca; padding:6px 12px; font-size:0.8rem; font-weight:700;" onclick="deleteProductById(${p.id})">
-                                🗑️ Delete
-                            </button>
-                        </div>
-                    `).join('')}
+        <div style="padding: 24px;">
+            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;">
+                Sign in with your Google email & password. You can also sign in as the <strong>Admin</strong> using your official account!
+            </p>
+
+            <form onsubmit="handleGoogleFormSubmit(event)">
+                <div class="neon-input-group">
+                    <label>Google Email Address *</label>
+                    <input type="email" id="authEmailInput" placeholder="example@gmail.com" required>
                 </div>
-            `;
+
+                <div class="neon-input-group">
+                    <label>Password *</label>
+                    <input type="password" id="authPasswordInput" placeholder="••••••••••••" required>
+                </div>
+
+                <div id="authErrorMessage" style="display: none; color: #ef4444; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; padding: 10px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Incorrect Email or Password.
+                </div>
+
+                <button type="submit" class="glow-action-btn" style="width: 100%; justify-content: center; padding: 14px;">
+                    <i class="fa-brands fa-google"></i> Connect Google Account
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ================= 8. FULL ADMIN CONTROL PANEL ================= -->
+<div class="admin-modal-overlay" id="adminControlModal">
+    <div class="admin-box">
+        <div class="admin-modal-header">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="font-size: 1.6rem; color: #ec4899;"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <h2 style="font-family: 'Orbitron'; font-size: 1.35rem; color: #ffffff;">Admin Master Control Panel</h2>
+                    <span style="font-size: 0.8rem; color: #10b981;">Authorized: ismail51029sep@gmail.com</span>
+                </div>
+            </div>
+            <button onclick="closeModal('adminControlModal')" style="background: none; border: none; color: #cbd5e1; font-size: 1.6rem; cursor: pointer;">&times;</button>
+        </div>
+
+        <!-- Admin Tab Buttons -->
+        <div class="admin-tabs-bar">
+            <button class="admin-tab-btn active" onclick="switchAdminTab('prod-add')">
+                <i class="fa-solid fa-plus-circle"></i> Add Product
+            </button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('prod-manage')">
+                <i class="fa-solid fa-boxes-stacked"></i> Stock & Delete
+            </button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('orders-tab')">
+                <i class="fa-solid fa-truck-ramp-box"></i> Customer Orders (<span id="adminOrderBadge">0</span>)
+            </button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('messages-tab')">
+                <i class="fa-solid fa-envelope-open-text"></i> Messages Received (<span id="adminMsgBadge">0</span>)
+            </button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('users-tab')">
+                <i class="fa-solid fa-users"></i> Registered Google Accounts
+            </button>
+        </div>
+
+        <!-- TAB 1: ADD PRODUCT -->
+        <div class="admin-tab-content active" id="adm-prod-add">
+            <h3 style="font-family: 'Orbitron'; color: #c084fc; margin-bottom: 16px;">Add New Product to Shop</h3>
+            <form onsubmit="handleAdminAddProduct(event)">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="neon-input-group">
+                        <label>Product Title *</label>
+                        <input type="text" id="admNewTitle" placeholder="e.g. RGB Mechanical Gaming Keyboard" required>
+                    </div>
+                    <div class="neon-input-group">
+                        <label>Price (PKR / Rs) *</label>
+                        <input type="number" id="admNewPrice" placeholder="4500" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="neon-input-group">
+                        <label>Category</label>
+                        <select id="admNewCategory">
+                            <option value="Electronics">Electronics</option>
+                            <option value="Gaming">Gaming</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Home & Kitchen">Home & Kitchen</option>
+                        </select>
+                    </div>
+                    <div class="neon-input-group">
+                        <label>Image URL</label>
+                        <input type="url" id="admNewImage" placeholder="https://images.unsplash.com/...">
+                    </div>
+                </div>
+
+                <div class="neon-input-group">
+                    <label>Product Description</label>
+                    <textarea id="admNewDesc" rows="3" placeholder="Enter specifications and features..."></textarea>
+                </div>
+
+                <button type="submit" class="glow-action-btn" style="padding: 12px 28px;">
+                    <i class="fa-solid fa-plus"></i> Publish Product
+                </button>
+            </form>
+        </div>
+
+        <!-- TAB 2: MANAGE & DELETE & STOCK -->
+        <div class="admin-tab-content" id="adm-prod-manage">
+            <h3 style="font-family: 'Orbitron'; color: #c084fc; margin-bottom: 16px;">Inventory & Stock Management</h3>
+            <div id="adminProductTableWrapper" style="overflow-x: auto;">
+                <!-- Table injected via JS -->
+            </div>
+        </div>
+
+        <!-- TAB 3: CUSTOMER ORDERS -->
+        <div class="admin-tab-content" id="adm-orders-tab">
+            <h3 style="font-family: 'Orbitron'; color: #c084fc; margin-bottom: 16px;">Placed Orders from Shop</h3>
+            <div id="adminOrdersList">
+                <!-- Orders injected by JS -->
+            </div>
+        </div>
+
+        <!-- TAB 4: MESSAGES RECEIVED -->
+        <div class="admin-tab-content" id="adm-messages-tab">
+            <h3 style="font-family: 'Orbitron'; color: #c084fc; margin-bottom: 16px;">Live Messages from Customers</h3>
+            <div id="adminMessagesList">
+                <!-- Messages injected by JS -->
+            </div>
+        </div>
+
+        <!-- TAB 5: REGISTERED GOOGLE USERS -->
+        <div class="admin-tab-content" id="adm-users-tab">
+            <h3 style="font-family: 'Orbitron'; color: #c084fc; margin-bottom: 16px;">User Accounts & Activity Log</h3>
+            <div id="adminUsersList">
+                <!-- Users list injected by JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /* ========================================================
+       APPLICATION STATE & CONFIGURATION
+       ======================================================== */
+    const ADMIN_CREDENTIALS = {
+        email: "ismail51029sep@gmail.com",
+        password: "@ismail1122334455"
+    };
+
+    // Default Products Seed
+    const DEFAULT_PRODUCTS = [
+        {
+            id: 1,
+            name: "Ultra Sound Pro Wireless Earbuds",
+            category: "Electronics",
+            price: 2999,
+            description: "Crystal clear sound with 30-hour battery life & ENC microphone.",
+            image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80",
+            outOfStock: false
+        },
+        {
+            id: 2,
+            name: "Karachi Heritage Chrono Watch",
+            category: "Accessories",
+            price: 4500,
+            description: "Stainless steel luxury water-resistant everyday smart timepiece.",
+            image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80",
+            outOfStock: false
+        },
+        {
+            id: 3,
+            name: "Urban Minimalist Oxford Backpack",
+            category: "Fashion",
+            price: 2200,
+            description: "Waterproof laptop compartment bag perfect for office & travel.",
+            image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80",
+            outOfStock: false
+        },
+        {
+            id: 4,
+            name: "Smart LED Desk Lamp with Charger",
+            category: "Home & Kitchen",
+            price: 3499,
+            description: "Adjustable 3-tone color temperature with fast mobile charging pad.",
+            image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80",
+            outOfStock: false
+        }
+    ];
+
+    // Local Storage Data Getters / Setters
+    function getStoredData(key, fallback) {
+        try {
+            const data = localStorage.getItem('official_web_' + key);
+            return data ? JSON.parse(data) : fallback;
+        } catch(e) {
+            return fallback;
+        }
+    }
+
+    function setStoredData(key, value) {
+        try {
+            localStorage.setItem('official_web_' + key, JSON.stringify(value));
+        } catch(e) {}
+    }
+
+    let products = getStoredData('products', DEFAULT_PRODUCTS);
+    let cart = getStoredData('cart', []);
+    let orders = getStoredData('orders', []);
+    let chatMessages = getStoredData('chats', [
+        {
+            id: 1,
+            sender: "Admin (Official Web)",
+            role: "admin",
+            text: "Hello! Welcome to Official Web. How can we help you today?",
+            time: "12:00 PM"
+        }
+    ]);
+    let registeredUsers = getStoredData('users', [
+        {
+            email: "ismail51029sep@gmail.com",
+            name: "Ismail (Master Admin)",
+            photo: "https://api.dicebear.com/7.x/bottts/svg?seed=AdminIsmail",
+            role: "admin",
+            registeredAt: "Initial Setup"
+        }
+    ]);
+
+    let currentUser = getStoredData('currentUser', null);
+    let foundDifferences = new Set();
+
+    /* ========================================================
+       SCREEN NAVIGATION
+       ======================================================== */
+    const screenTitles = {
+        home: '<i class="fa-solid fa-house" style="color: #a855f7;"></i> Home',
+        mychannel: '<i class="fa-brands fa-youtube" style="color: #ff0000;"></i> My Channel',
+        shop: '<i class="fa-solid fa-bag-shopping" style="color: #c084fc;"></i> Shop Portal',
+        games: '<i class="fa-solid fa-gamepad" style="color: #10b981;"></i> 10 Differences Game',
+        cart: '<i class="fa-solid fa-cart-shopping" style="color: #38bdf8;"></i> Shopping Cart',
+        message: '<i class="fa-solid fa-envelope" style="color: #ec4899;"></i> Message Ours'
+    };
+
+    function showScreen(screenId) {
+        // Enforce Login for Message Ours as requested
+        if (screenId === 'message' && !currentUser) {
+            alert("Baghair Google Sign In ke Message nahi khulega. Barah-e-karam pehle Sign In karein.");
+            openModal('googleAuthModal');
+            return;
         }
 
-        function deleteProductById(productId) {
-            const prod = products.find(p => p.id === productId);
-            if (!prod) return;
+        // Deactivate all views
+        document.querySelectorAll('.content-view').forEach(view => view.classList.remove('active'));
+        document.querySelectorAll('.menu-item-btn').forEach(btn => btn.classList.remove('active'));
 
-            if (confirm(`Are you sure you want to delete "${prod.name}" from the store?`)) {
-                products = products.filter(p => p.id !== productId);
-                saveProducts(true);
-                renderProducts();
-                renderAdminDeleteList();
-            }
+        const targetView = document.getElementById('view-' + screenId);
+        if (targetView) targetView.classList.add('active');
+
+        const activeBtn = document.getElementById('btn-' + screenId);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        // Update Title Heading
+        const heading = document.getElementById('screenTitleHeading');
+        if (heading && screenTitles[screenId]) {
+            heading.innerHTML = screenTitles[screenId];
         }
 
-        // Auth & Admin Functions
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.add('active');
-            const emailInput = document.getElementById('loginEmailInput');
-            if (emailInput) emailInput.focus();
-        }
+        if (screenId === 'shop') renderProducts();
+        if (screenId === 'cart') renderCart();
+        if (screenId === 'message') renderChat();
+    }
 
-        function handleAccountLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
-            const pass = document.getElementById('loginPasswordInput').value;
-
-            // Admin Account Authentication Check
-            if (email === ADMIN_EMAIL.toLowerCase()) {
-                if (pass === '@hussain123') {
-                    currentAuthUser = {
-                        email: email,
-                        name: 'Ismail (Admin)',
-                        role: 'admin',
-                        loggedInAt: new Date().toISOString()
-                    };
-                    localStorage.setItem('yds_auth_user', JSON.stringify(currentAuthUser));
-                    closeModal('loginModal');
-                    syncAuthState();
-                    alert("Admin verified! Welcome Ismail.");
-                    openAdminModal();
-                } else {
-                    alert("Incorrect password! Access denied.");
-                    return;
-                }
+    /* ========================================================
+       GOOGLE AUTHENTICATION (USER & ADMIN)
+       ======================================================== */
+    function handleGoogleAccountClick() {
+        if (currentUser) {
+            if (currentUser.role === 'admin') {
+                openAdminPanel();
             } else {
-                // Regular customer login
-                if (pass.length < 4) {
-                    alert("Password must be at least 4 characters.");
-                    return;
-                }
-                currentAuthUser = {
-                    email: email,
-                    name: email.split('@')[0],
-                    role: 'customer',
-                    loggedInAt: new Date().toISOString()
+                alert("Aap pehle se signed in hain ba-nam: " + currentUser.name + " (" + currentUser.email + ")");
+            }
+        } else {
+            openModal('googleAuthModal');
+        }
+    }
+
+    function handleGoogleFormSubmit(e) {
+        e.preventDefault();
+        const email = document.getElementById('authEmailInput').value.trim();
+        const pass = document.getElementById('authPasswordInput').value.trim();
+        const errBox = document.getElementById('authErrorMessage');
+
+        if (!email || !pass) return;
+
+        // Check Admin
+        if (email.toLowerCase() === ADMIN_CREDENTIALS.email.toLowerCase()) {
+            if (pass === ADMIN_CREDENTIALS.password) {
+                // Verified Admin
+                errBox.style.display = 'none';
+                currentUser = {
+                    name: "Ismail (Admin)",
+                    email: ADMIN_CREDENTIALS.email,
+                    role: "admin",
+                    photo: "https://api.dicebear.com/7.x/bottts/svg?seed=OfficialAdmin"
                 };
-                localStorage.setItem('yds_auth_user', JSON.stringify(currentAuthUser));
-                closeModal('loginModal');
-                syncAuthState();
-                alert(`Signed in as ${email}`);
-            }
-
-            // Reset inputs
-            document.getElementById('loginEmailInput').value = '';
-            document.getElementById('loginPasswordInput').value = '';
-        }
-
-        function handleSignOut() {
-            if (confirm("Are you sure you want to log out?")) {
-                currentAuthUser = null;
-                localStorage.removeItem('yds_auth_user');
-                isAdminLoggedIn = false;
-                closeModal('adminModal');
-                syncAuthState();
-                alert("Logged out successfully.");
-            }
-        }
-
-        function syncAuthState() {
-            const adminBtn = document.getElementById('adminPortalBtn');
-            const signInBtn = document.getElementById('signInBtn');
-            const userProfileBadge = document.getElementById('userProfileBadge');
-            const userEmailTag = document.getElementById('userEmailTag');
-
-            if (currentAuthUser && currentAuthUser.email) {
-                const userEmail = currentAuthUser.email.toLowerCase();
-                signInBtn.style.display = 'none';
-                userProfileBadge.style.display = 'inline-flex';
-                userEmailTag.textContent = userEmail;
-
-                if (userEmail === ADMIN_EMAIL.toLowerCase()) {
-                    isAdminLoggedIn = true;
-                    if (adminBtn) adminBtn.style.display = 'inline-block';
-                    userEmailTag.title = "Verified Admin Account";
-                    userEmailTag.innerHTML = `⭐ ${userEmail}`;
-                } else {
-                    isAdminLoggedIn = false;
-                    if (adminBtn) adminBtn.style.display = 'none';
-                    userEmailTag.title = "Standard User";
-                }
+                setStoredData('currentUser', currentUser);
+                updateAuthUI();
+                closeModal('googleAuthModal');
+                alert("Khush-Aamdeed Master Admin! Admin panel unlock ho chuka hai.");
+                openAdminPanel();
+                return;
             } else {
-                isAdminLoggedIn = false;
-                if (adminBtn) adminBtn.style.display = 'none';
-                signInBtn.style.display = 'inline-flex';
-                userProfileBadge.style.display = 'none';
-            }
-        }
-
-        // Admin Functionalities
-        function openAdminModal() {
-            if (!isAdminLoggedIn) {
-                alert("Access restricted. Please sign in with admin Google account (ismail51029sep@gmail.com).");
-                openLoginModal();
+                errBox.style.display = 'block';
+                errBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Admin Password ghalat hai!';
                 return;
             }
-            document.getElementById('adminModal').classList.add('active');
-            switchAdminTab('add');
         }
 
-        function logoutAdmin() {
-            handleSignOut();
+        // Standard Google User
+        if (pass.length < 6) {
+            errBox.style.display = 'block';
+            errBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Password must be at least 6 characters.';
+            return;
         }
 
-        function handleProductAdd(e) {
-            e.preventDefault();
-            const title = document.getElementById('newProdTitle').value.trim();
-            const price = parseFloat(document.getElementById('newProdPrice').value);
-            const category = document.getElementById('newProdCategory').value;
-            const img = document.getElementById('newProdImage').value.trim();
-            const desc = document.getElementById('newProdDesc').value.trim();
+        errBox.style.display = 'none';
+        const extractedUsername = email.split('@')[0];
+        currentUser = {
+            name: extractedUsername.charAt(0).toUpperCase() + extractedUsername.slice(1),
+            email: email,
+            role: "user",
+            photo: `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(email)}`
+        };
 
-            const newProduct = {
-                id: Date.now(),
-                name: title,
-                price: price,
-                category: category,
-                image: img || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80',
-                description: desc || 'Newly added item at Your Dream Shop.'
-            };
+        // Record User in Registered Accounts list
+        if (!registeredUsers.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+            registeredUsers.push({
+                email: email,
+                name: currentUser.name,
+                photo: currentUser.photo,
+                role: "user",
+                registeredAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            setStoredData('users', registeredUsers);
+        }
 
-            products.unshift(newProduct);
-            saveProducts(true);
+        setStoredData('currentUser', currentUser);
+        updateAuthUI();
+        closeModal('googleAuthModal');
+        alert("Google Account se kamyabi se sign in ho gaye!");
+    }
+
+    function handleSignOut() {
+        if (!currentUser) {
+            alert("Aap pehle se sign out hain.");
+            return;
+        }
+        if (confirm("Kya aap waqayi sign out karna chahte hain?")) {
+            currentUser = null;
+            localStorage.removeItem('official_web_currentUser');
+            updateAuthUI();
+            showScreen('home');
+            alert("Aapka account sign out kar diya gaya hai.");
+        }
+    }
+
+    function updateAuthUI() {
+        const avatarImg = document.getElementById('userAvatarImg');
+        const nameLabel = document.getElementById('userNameLabel');
+        const roleLabel = document.getElementById('userRoleLabel');
+        const adminBtn = document.getElementById('adminControlBtn');
+        const googleMenuText = document.getElementById('googleMenuText');
+        const chatUserNameTag = document.getElementById('chatUserNameTag');
+
+        if (currentUser) {
+            avatarImg.src = currentUser.photo;
+            nameLabel.textContent = currentUser.name;
+            roleLabel.textContent = currentUser.role === 'admin' ? "👑 Master Admin" : currentUser.email;
+            googleMenuText.textContent = currentUser.role === 'admin' ? "Admin Account" : currentUser.name;
+            chatUserNameTag.textContent = currentUser.name;
+
+            if (currentUser.role === 'admin') {
+                adminBtn.style.display = 'inline-flex';
+            } else {
+                adminBtn.style.display = 'none';
+            }
+        } else {
+            avatarImg.src = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80";
+            nameLabel.textContent = "Guest User";
+            roleLabel.textContent = "Click to Sign In";
+            googleMenuText.textContent = "Google Account";
+            chatUserNameTag.textContent = "Guest";
+            adminBtn.style.display = 'none';
+        }
+    }
+
+    /* ========================================================
+       SHOP & PRODUCTS
+       ======================================================== */
+    function renderProducts(filterText = "") {
+        const container = document.getElementById('productGridContainer');
+        const countNum = document.getElementById('productCountNum');
+        if (!container) return;
+
+        let filtered = products;
+        if (filterText) {
+            filtered = products.filter(p => 
+                p.name.toLowerCase().includes(filterText.toLowerCase()) ||
+                (p.category && p.category.toLowerCase().includes(filterText.toLowerCase()))
+            );
+        }
+
+        countNum.textContent = filtered.length;
+
+        if (filtered.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #94a3b8;">
+                    <i class="fa-solid fa-box-open" style="font-size: 3rem; color: #a855f7; margin-bottom: 10px;"></i>
+                    <p style="font-size: 1.2rem;">Koi product nahi mila!</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = filtered.map(p => `
+            <div class="product-card">
+                ${p.outOfStock ? '<span class="out-of-stock-tag">Out of Stock</span>' : ''}
+                <img src="${p.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80'}" alt="${p.name}">
+                <div class="product-body">
+                    <span class="prod-cat-badge">${p.category || 'General'}</span>
+                    <h3 class="prod-title">${p.name}</h3>
+                    <p class="prod-desc">${p.description || ''}</p>
+                    <div class="prod-footer">
+                        <span class="prod-price">Rs ${p.price.toLocaleString()}</span>
+                        <button class="add-cart-btn" onclick="addToCart(${p.id})" ${p.outOfStock ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
+                            <i class="fa-solid fa-cart-plus"></i> ${p.outOfStock ? 'Finished' : 'Add to Cart'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function filterProducts() {
+        const val = document.getElementById('shopSearchInput').value.trim();
+        renderProducts(val);
+    }
+
+    /* ========================================================
+       CART & CHECKOUT
+       ======================================================== */
+    function addToCart(productId) {
+        const prod = products.find(p => p.id === productId);
+        if (!prod || prod.outOfStock) return;
+
+        const existing = cart.find(item => item.id === productId);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({
+                id: prod.id,
+                name: prod.name,
+                price: prod.price,
+                image: prod.image,
+                qty: 1
+            });
+        }
+        setStoredData('cart', cart);
+        updateCartBadge();
+        alert(`${prod.name} cart mein add ho gaya!`);
+    }
+
+    function changeCartQty(id, delta) {
+        const item = cart.find(i => i.id === id);
+        if (!item) return;
+
+        item.qty += delta;
+        if (item.qty <= 0) {
+            cart = cart.filter(i => i.id !== id);
+        }
+        setStoredData('cart', cart);
+        renderCart();
+        updateCartBadge();
+    }
+
+    function updateCartBadge() {
+        const badge = document.getElementById('cartCountBadge');
+        const count = cart.reduce((sum, item) => sum + item.qty, 0);
+        if (badge) badge.textContent = count;
+    }
+
+    function renderCart() {
+        const container = document.getElementById('cartItemsListContainer');
+        const totalLabel = document.getElementById('cartGrandTotalLabel');
+        if (!container) return;
+
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #94a3b8;">
+                    <i class="fa-solid fa-cart-arrow-down" style="font-size: 3rem; color: #a855f7; margin-bottom: 10px;"></i>
+                    <p style="font-size: 1.15rem;">Aap ka cart khali hai.</p>
+                </div>
+            `;
+            totalLabel.textContent = "Rs 0";
+            return;
+        }
+
+        let total = 0;
+        container.innerHTML = cart.map(item => {
+            const sub = item.price * item.qty;
+            total += sub;
+            return `
+                <div class="cart-row">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-info">
+                        <div style="font-weight: 700; color: #ffffff;">${item.name}</div>
+                        <div style="color: #38bdf8; font-size: 0.95rem;">Rs ${item.price.toLocaleString()}</div>
+                    </div>
+                    <div class="cart-qty-ctrl">
+                        <button onclick="changeCartQty(${item.id}, -1)">-</button>
+                        <span style="font-weight: 800; min-width: 20px; text-align: center;">${item.qty}</span>
+                        <button onclick="changeCartQty(${item.id}, 1)">+</button>
+                    </div>
+                    <div style="font-family: 'Orbitron'; font-weight: 700; color: #c084fc; min-width: 80px; text-align: right;">
+                        Rs ${sub.toLocaleString()}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        totalLabel.textContent = `Rs ${total.toLocaleString()}`;
+    }
+
+    function handlePlaceOrder(e) {
+        e.preventDefault();
+        if (cart.length === 0) {
+            alert("Pehle cart mein koi item add karein!");
+            return;
+        }
+
+        const name = document.getElementById('orderFullName').value.trim();
+        const phone = document.getElementById('orderPhone').value.trim();
+        const address = document.getElementById('orderAddress').value.trim();
+
+        const newOrder = {
+            orderId: 'ORD-' + Date.now().toString().slice(-6),
+            customerName: name,
+            phone: phone,
+            address: address,
+            items: [...cart],
+            totalAmount: cart.reduce((sum, item) => sum + (item.price * item.qty), 0),
+            date: new Date().toLocaleString(),
+            userEmail: currentUser ? currentUser.email : "Guest",
+            status: "Pending"
+        };
+
+        orders.unshift(newOrder);
+        setStoredData('orders', orders);
+
+        // Clear Cart
+        cart = [];
+        setStoredData('cart', cart);
+        renderCart();
+        updateCartBadge();
+        document.getElementById('orderCheckoutForm').reset();
+
+        alert(`Shukriya ${name}! Aap ka order (${newOrder.orderId}) receive ho gaya hai aur Admin Panel mein forward ho chuka hai.`);
+    }
+
+    /* ========================================================
+       10 DIFFERENCES GAME
+       ======================================================== */
+    function clickDifference(diffId, cx, cy) {
+        if (foundDifferences.has(diffId)) return;
+
+        foundDifferences.add(diffId);
+
+        // Add Marker
+        const picBox = document.getElementById('picBoxRight');
+        const marker = document.createElement('div');
+        marker.className = 'found-marker';
+        marker.style.left = (cx / 460 * 100) + '%';
+        marker.style.top = (cy / 480 * 100) + '%';
+        picBox.appendChild(marker);
+
+        // Update counts
+        const foundCount = foundDifferences.size;
+        const remaining = 10 - foundCount;
+
+        document.getElementById('diffFoundCount').textContent = foundCount;
+        document.getElementById('diffRemainingCount').textContent = remaining;
+
+        if (foundCount === 10) {
+            setTimeout(() => {
+                alert("🎉 MUBARAK HO! Aap ne tamam 10 ke 10 differences dhoond liye hain!");
+            }, 300);
+        }
+    }
+
+    function resetDifferenceGame() {
+        foundDifferences.clear();
+        document.querySelectorAll('.found-marker').forEach(m => m.remove());
+        document.getElementById('diffFoundCount').textContent = 0;
+        document.getElementById('diffRemainingCount').textContent = 10;
+    }
+
+    /* ========================================================
+       MESSAGE OURS & LIVE CHAT
+       ======================================================== */
+    function renderChat() {
+        const box = document.getElementById('chatMessagesBox');
+        if (!box) return;
+
+        box.innerHTML = chatMessages.map(msg => {
+            const isMine = currentUser && (msg.senderEmail === currentUser.email || (currentUser.role === 'admin' && msg.role === 'admin'));
+            return `
+                <div class="chat-bubble ${isMine ? 'mine' : 'theirs'}">
+                    <div class="chat-sender-tag">${msg.sender}</div>
+                    <div>${msg.text}</div>
+                    <div class="chat-time-tag">${msg.time}</div>
+                </div>
+            `;
+        }).join('');
+
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function handleSendChatMessage(e) {
+        e.preventDefault();
+        if (!currentUser) {
+            alert("Pehle Google Account se Sign In karein.");
+            openModal('googleAuthModal');
+            return;
+        }
+
+        const input = document.getElementById('chatMessageInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const newMsg = {
+            id: Date.now(),
+            sender: currentUser.name,
+            senderEmail: currentUser.email,
+            role: currentUser.role,
+            text: text,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+
+        chatMessages.push(newMsg);
+        setStoredData('chats', chatMessages);
+        input.value = '';
+        renderChat();
+
+        // Auto Admin Reply for normal users
+        if (currentUser.role !== 'admin') {
+            setTimeout(() => {
+                chatMessages.push({
+                    id: Date.now() + 1,
+                    sender: "Admin (Official Web)",
+                    role: "admin",
+                    text: `Aap ka message receive ho gaya hai, ${currentUser.name}! Admin jald rabta karega.`,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+                setStoredData('chats', chatMessages);
+                renderChat();
+            }, 1000);
+        }
+    }
+
+    /* ========================================================
+       ADMIN CONTROL PANEL OPERATIONS
+       ======================================================== */
+    function openAdminPanel() {
+        if (!currentUser || currentUser.role !== 'admin') {
+            alert("Access Denied! Sirf Admin (ismail51029sep@gmail.com) login kar sakta hai.");
+            openModal('googleAuthModal');
+            return;
+        }
+        openModal('adminControlModal');
+        switchAdminTab('prod-add');
+        renderAdminTables();
+    }
+
+    function switchAdminTab(tabKey) {
+        document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+
+        const targetContent = document.getElementById('adm-' + tabKey);
+        if (targetContent) targetContent.classList.add('active');
+
+        // Highlight clicked button
+        event?.target?.closest('.admin-tab-btn')?.classList.add('active');
+
+        renderAdminTables();
+    }
+
+    function handleAdminAddProduct(e) {
+        e.preventDefault();
+        const title = document.getElementById('admNewTitle').value.trim();
+        const price = parseFloat(document.getElementById('admNewPrice').value);
+        const cat = document.getElementById('admNewCategory').value;
+        const img = document.getElementById('admNewImage').value.trim();
+        const desc = document.getElementById('admNewDesc').value.trim();
+
+        const newProd = {
+            id: Date.now(),
+            name: title,
+            price: price,
+            category: cat,
+            image: img || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80',
+            description: desc,
+            outOfStock: false
+        };
+
+        products.unshift(newProd);
+        setStoredData('products', products);
+        alert("Naya product shop mein add ho gaya!");
+        e.target.reset();
+        renderProducts();
+        renderAdminTables();
+    }
+
+    function deleteProduct(id) {
+        if (confirm("Kya aap waqayi is product ko delete karna chahte hain?")) {
+            products = products.filter(p => p.id !== id);
+            setStoredData('products', products);
             renderProducts();
+            renderAdminTables();
+        }
+    }
 
-            // Reset form and close
-            document.getElementById('addProductForm').reset();
-            closeModal('adminModal');
+    function toggleStock(id) {
+        const prod = products.find(p => p.id === id);
+        if (prod) {
+            prod.outOfStock = !prod.outOfStock;
+            setStoredData('products', products);
+            renderProducts();
+            renderAdminTables();
+        }
+    }
+
+    function renderAdminTables() {
+        // Badges
+        const orderBadge = document.getElementById('adminOrderBadge');
+        if (orderBadge) orderBadge.textContent = orders.length;
+
+        const msgBadge = document.getElementById('adminMsgBadge');
+        if (msgBadge) msgBadge.textContent = chatMessages.length;
+
+        // Inventory Table
+        const tableWrap = document.getElementById('adminProductTableWrapper');
+        if (tableWrap) {
+            tableWrap.innerHTML = `
+                <table style="width: 100%; border-collapse: collapse; text-align: left; color: #f8fafc;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #a855f7; color: #c084fc;">
+                            <th style="padding: 10px;">Item</th>
+                            <th style="padding: 10px;">Title</th>
+                            <th style="padding: 10px;">Category</th>
+                            <th style="padding: 10px;">Price</th>
+                            <th style="padding: 10px;">Stock Status</th>
+                            <th style="padding: 10px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${products.map(p => `
+                            <tr style="border-bottom: 1px solid rgba(168, 85, 247, 0.2);">
+                                <td style="padding: 10px;"><img src="${p.image}" style="width: 45px; height: 45px; border-radius: 8px; object-fit: cover;"></td>
+                                <td style="padding: 10px; font-weight: 700;">${p.name}</td>
+                                <td style="padding: 10px; color: #cbd5e1;">${p.category}</td>
+                                <td style="padding: 10px; color: #38bdf8;">Rs ${p.price.toLocaleString()}</td>
+                                <td style="padding: 10px;">
+                                    <span style="padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; background: ${p.outOfStock ? '#ef4444' : '#10b981'}; color: white;">
+                                        ${p.outOfStock ? 'Out of Stock' : 'In Stock'}
+                                    </span>
+                                </td>
+                                <td style="padding: 10px;">
+                                    <button onclick="toggleStock(${p.id})" style="background: #6366f1; border: none; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-right: 6px;">
+                                        Toggle Stock
+                                    </button>
+                                    <button onclick="deleteProduct(${p.id})" style="background: #ef4444; border: none; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer;">
+                                        <i class="fa-solid fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        // Close modal when clicking outside box
-        window.onclick = function(e) {
-            if (e.target.classList.contains('modal-overlay')) {
-                e.target.classList.remove('active');
+        // Orders List
+        const ordersList = document.getElementById('adminOrdersList');
+        if (ordersList) {
+            if (orders.length === 0) {
+                ordersList.innerHTML = `<p style="color: #94a3b8;">Abhi tak koi order receive nahi hua.</p>`;
+            } else {
+                ordersList.innerHTML = orders.map(ord => `
+                    <div style="background: rgba(22, 11, 48, 0.7); border: 1px solid #a855f7; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 8px; margin-bottom: 10px;">
+                            <span style="font-family: 'Orbitron'; color: #38bdf8; font-weight: 700;">${ord.orderId}</span>
+                            <span style="color: #c084fc; font-size: 0.85rem;">${ord.date}</span>
+                        </div>
+                        <div style="font-size: 1rem; color: #ffffff;">Customer: <strong>${ord.customerName}</strong> | Phone: <strong>${ord.phone}</strong></div>
+                        <div style="color: #cbd5e1; font-size: 0.9rem; margin-top: 4px;">Address: ${ord.address}</div>
+                        <div style="margin-top: 10px; font-weight: bold; color: #10b981;">Total: Rs ${ord.totalAmount.toLocaleString()}</div>
+                    </div>
+                `).join('');
             }
         }
 
-        // Initialization
-        syncAuthState();
-        renderProducts();
-        updateCartCounter();
-        fetchLiveProducts();
-    </script>
+        // Messages List
+        const msgsList = document.getElementById('adminMessagesList');
+        if (msgsList) {
+            msgsList.innerHTML = chatMessages.map(m => `
+                <div style="padding: 10px 14px; border-bottom: 1px solid rgba(168, 85, 247, 0.2); display: flex; justify-content: space-between;">
+                    <div>
+                        <strong style="color: #c084fc;">${m.sender}</strong>: <span style="color: #ffffff;">${m.text}</span>
+                    </div>
+                    <span style="color: #94a3b8; font-size: 0.8rem;">${m.time}</span>
+                </div>
+            `).join('');
+        }
+
+        // Users List
+        const usersList = document.getElementById('adminUsersList');
+        if (usersList) {
+            usersList.innerHTML = registeredUsers.map(u => `
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid rgba(168, 85, 247, 0.2);">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <img src="${u.photo}" style="width: 36px; height: 36px; border-radius: 50%;">
+                        <div>
+                            <div style="font-weight: 700; color: #ffffff;">${u.name}</div>
+                            <div style="font-size: 0.85rem; color: #94a3b8;">${u.email}</div>
+                        </div>
+                    </div>
+                    <span style="padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; background: ${u.role === 'admin' ? '#ec4899' : '#6366f1'}; color: white; font-weight: bold;">
+                        ${u.role.toUpperCase()}
+                    </span>
+                </div>
+            `).join('');
+        }
+    }
+
+    /* Modal Controls */
+    function openModal(id) {
+        document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+
+    // Init App
+    updateAuthUI();
+    updateCartBadge();
+    renderProducts();
+</script>
 </body>
 </html>
