@@ -874,6 +874,20 @@
             display: flex;
             flex-direction: column;
             background: rgba(11, 5, 26, 0.7);
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .chat-messages-flow {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            -webkit-overflow-scrolling: touch;
+            min-height: 0;
         }
 
         .active-conv-header {
@@ -1135,6 +1149,18 @@
             /* WhatsApp Chat Layout on Mobile - PC style side-by-side threads */
             .chat-app-whatsapp {
                 height: 520px !important;
+            }
+            .chat-messages-flow {
+                padding: 12px 10px !important;
+                gap: 10px !important;
+                flex: 1 !important;
+                min-height: 0 !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            .chat-active-conversation {
+                min-height: 0 !important;
+                overflow: hidden !important;
             }
             .chat-threads-sidebar {
                 width: 120px !important; /* Compact contacts column */
@@ -2131,7 +2157,6 @@
                 setStoredData('currentUser', currentUser);
                 updateAuthUI();
                 closeModal('googleAuthModal');
-                alert("Khush-Aamdeed Master Admin! Admin panel unlock ho chuka hai.");
                 openAdminPanel();
                 return;
             } else {
@@ -2177,7 +2202,7 @@
         setStoredData('currentUser', currentUser);
         updateAuthUI();
         closeModal('googleAuthModal');
-        alert("Google Account se kamyabi se sign in ho gaye!");
+        // Auto dismiss modal instantly without popup blocking
     }
 
     function handleSignOut() {
