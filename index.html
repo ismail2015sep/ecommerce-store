@@ -2595,6 +2595,27 @@
             ? (targetEmail || '').toLowerCase()
             : currentUser.email.toLowerCase();
 
+        // Check first-time welcome message from Admin for new users
+        if (currentUser.role !== 'admin' && currentThreadKey) {
+            const hasWelcomeMsg = chatMessages.some(m => 
+                (m.threadEmail || '').toLowerCase() === currentThreadKey && m.isAutoWelcome
+            );
+            if (!hasWelcomeMsg) {
+                const welcomeMsg = {
+                    id: Date.now(),
+                    threadEmail: currentThreadKey,
+                    sender: "Official Web (Admin)",
+                    senderEmail: ADMIN_CREDENTIALS.email,
+                    role: "admin",
+                    isAutoWelcome: true,
+                    text: "Hi! Welcome to Official Web.\n\n✨ Features:\n🎮 Games (10 Differences)\n📺 My Channel (@i.hplayz)\n🛍️ You can order products from here\n💬 Chat with us & much more!",
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                };
+                chatMessages.push(welcomeMsg);
+                setStoredData('chats', chatMessages);
+            }
+        }
+
         const msgs = chatMessages.filter(m => {
             const th = (m.threadEmail || m.senderEmail || '').toLowerCase();
             return th === currentThreadKey;
