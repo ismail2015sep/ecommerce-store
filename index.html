@@ -946,6 +946,115 @@
             gap: 12px;
         }
 
+        /* 6.5 COMMENTS SECTION */
+        .comments-section-container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .comments-header-card {
+            background: linear-gradient(135deg, rgba(22, 11, 48, 0.9) 0%, rgba(35, 17, 75, 0.75) 100%);
+            border: 1.5px solid rgba(168, 85, 247, 0.4);
+            border-radius: 18px;
+            padding: 24px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .comments-input-card {
+            background: rgba(22, 11, 48, 0.85);
+            border: 1.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .comment-user-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+
+        .comments-list-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comment-item-card {
+            background: rgba(22, 11, 48, 0.75);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 14px;
+            padding: 18px 22px;
+            display: flex;
+            gap: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .comment-item-card:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.2);
+        }
+
+        .comment-item-card img.comment-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #a855f7;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+        }
+
+        .comment-content-wrap {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .comment-user-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .comment-author-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comment-text-body {
+            color: #e2e8f0;
+            font-size: 0.98rem;
+            line-height: 1.55;
+            word-break: break-word;
+        }
+
+        .comment-time-stamp {
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
+
         /* 7. ADMIN PANEL MODAL & TABS */
         .admin-modal-overlay {
             position: fixed;
@@ -1333,6 +1442,17 @@
                 <i class="fa-solid fa-chevron-right chevron-icon"></i>
             </button>
 
+            <button class="menu-item-btn" id="btn-comments" onclick="showScreen('comments')">
+                <div class="left-wrap">
+                    <i class="fa-solid fa-comments menu-icon" style="color: #38bdf8; filter: drop-shadow(0 0 6px #38bdf8);"></i>
+                    <span>Comments</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="badge-counter" id="commentsCountBadge">0</span>
+                    <i class="fa-solid fa-chevron-right chevron-icon"></i>
+                </div>
+            </button>
+
             <button class="menu-item-btn" id="btn-google" onclick="handleGoogleAccountClick()">
                 <div class="left-wrap">
                     <i class="fa-brands fa-google menu-icon"></i>
@@ -1400,6 +1520,9 @@
                     </button>
                     <button class="glow-action-btn" onclick="showScreen('mychannel')">
                         <i class="fa-brands fa-youtube"></i> YouTube Channel
+                    </button>
+                    <button class="glow-action-btn" onclick="showScreen('comments')">
+                        <i class="fa-solid fa-comments"></i> Community Comments
                     </button>
                 </div>
             </div>
@@ -1713,6 +1836,48 @@
                 </div>
             </div>
         </section>
+
+        <!-- 7. COMMENTS VIEW -->
+        <section class="content-view" id="view-comments">
+            <div class="comments-section-container">
+                <!-- Header Stats Card -->
+                <div class="comments-header-card">
+                    <div>
+                        <div style="font-family: 'Orbitron'; font-weight: 700; color: #ffffff; font-size: 1.4rem; display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-comments" style="color: #38bdf8;"></i> Community Comments
+                        </div>
+                        <p style="color: #cbd5e1; font-size: 0.95rem; margin-top: 6px;">
+                            Share your thoughts, feedback, and interact with the community!
+                        </p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; color: #38bdf8; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">
+                            <i class="fa-solid fa-comment-dots"></i> Total: <span id="commentsTotalHeader">0</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Comment Input Box (or Sign-in Prompt) -->
+                <div class="comments-input-card" id="commentPostCard">
+                    <!-- Dynamic state injected by renderComments() -->
+                </div>
+
+                <!-- Filter / Sorting Tabs -->
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 8px;">
+                    <div style="font-weight: 700; color: #c084fc; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-fire"></i> All Comments (<span id="commentsCountLabel">0</span>)
+                    </div>
+                    <button class="glow-action-btn" onclick="renderComments()" style="padding: 6px 14px; font-size: 0.85rem;">
+                        <i class="fa-solid fa-rotate-right"></i> Refresh
+                    </button>
+                </div>
+
+                <!-- Comments List Flow -->
+                <div class="comments-list-flow" id="commentsListContainer">
+                    <!-- Comments injected by JS -->
+                </div>
+            </div>
+        </section>
     </main>
 </div>
 
@@ -1790,6 +1955,9 @@
             <button class="admin-tab-btn" onclick="switchAdminTab('users-tab')">
                 <i class="fa-solid fa-users"></i> Registered Google Accounts
             </button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('comments-tab')">
+                <i class="fa-solid fa-comments"></i> User Comments (<span id="adminCommentsBadge">0</span>)
+            </button>
         </div>
 
         <!-- TAB 1: ADD PRODUCT -->
@@ -1864,6 +2032,19 @@
             <h3 style="font-family: 'Orbitron'; color: #c084fc; margin-bottom: 16px;">User Accounts & Activity Log</h3>
             <div id="adminUsersList">
                 <!-- Users list injected by JS -->
+            </div>
+        </div>
+
+        <!-- TAB 6: USER COMMENTS (MODERATION) -->
+        <div class="admin-tab-content" id="adm-comments-tab">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-family: 'Orbitron'; color: #c084fc;">All User Comments & Reviews</h3>
+                <button class="glow-action-btn" onclick="renderAdminTables()" style="padding: 6px 14px; font-size: 0.85rem;">
+                    <i class="fa-solid fa-rotate-right"></i> Refresh
+                </button>
+            </div>
+            <div id="adminCommentsList">
+                <!-- Comments list injected by JS -->
             </div>
         </div>
     </div>
@@ -1985,6 +2166,15 @@
                             localStorage.setItem('official_web_chats', JSON.stringify(chatMessages));
                         }
 
+                        // Merge Comments
+                        if (Array.isArray(cloudDB.comments)) {
+                            const commMap = new Map();
+                            commentsList.forEach(c => commMap.set(c.id, c));
+                            cloudDB.comments.forEach(c => commMap.set(c.id, c));
+                            commentsList = Array.from(commMap.values());
+                            localStorage.setItem('official_web_comments', JSON.stringify(commentsList));
+                        }
+
                         // Merge Products
                         if (Array.isArray(cloudDB.products) && cloudDB.products.length > 0) {
                             products = cloudDB.products;
@@ -1995,6 +2185,7 @@
                         renderProducts();
                         renderThreads();
                         renderChat();
+                        renderComments();
                         renderAdminTables();
                     }
                 }
@@ -2012,6 +2203,7 @@
                 users: registeredUsers,
                 orders: orders,
                 chats: chatMessages,
+                comments: commentsList,
                 products: products
             };
 
@@ -2048,6 +2240,18 @@
             time: "12:00 PM"
         }
     ]);
+    let commentsList = getStoredData('comments', [
+        {
+            id: 1,
+            sender: "Ismail (Master Admin)",
+            senderEmail: "ismail51029sep@gmail.com",
+            role: "admin",
+            avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=AdminIsmail",
+            text: "Welcome to Official Web Community Comments section! Feel free to leave your review and feedback.",
+            time: "12:00 PM",
+            date: "Today"
+        }
+    ]);
     let registeredUsers = getStoredData('users', [
         {
             email: "ismail51029sep@gmail.com",
@@ -2070,7 +2274,8 @@
         shop: '<i class="fa-solid fa-bag-shopping" style="color: #c084fc;"></i> Shop Portal',
         games: '<i class="fa-solid fa-gamepad" style="color: #10b981;"></i> 10 Differences Game',
         cart: '<i class="fa-solid fa-cart-shopping" style="color: #38bdf8;"></i> Shopping Cart',
-        message: '<i class="fa-solid fa-envelope" style="color: #ec4899;"></i> Message Ours'
+        message: '<i class="fa-solid fa-envelope" style="color: #ec4899;"></i> Message Ours',
+        comments: '<i class="fa-solid fa-comments" style="color: #38bdf8;"></i> Community Comments'
     };
 
     function showScreen(screenId) {
@@ -2100,6 +2305,7 @@
         if (screenId === 'shop') renderProducts();
         if (screenId === 'cart') renderCart();
         if (screenId === 'message') renderChat();
+        if (screenId === 'comments') renderComments();
     }
 
     /* ========================================================
@@ -2726,6 +2932,165 @@
     }
 
     /* ========================================================
+       COMMENTS SYSTEM (SIGN-IN REQUIRED, SHOW USERNAME & AVATAR)
+       ======================================================== */
+    function updateCommentsBadge() {
+        const badge = document.getElementById('commentsCountBadge');
+        if (badge) badge.textContent = commentsList.length;
+
+        const totalHeader = document.getElementById('commentsTotalHeader');
+        if (totalHeader) totalHeader.textContent = commentsList.length;
+
+        const countLabel = document.getElementById('commentsCountLabel');
+        if (countLabel) countLabel.textContent = commentsList.length;
+    }
+
+    function renderComments() {
+        updateCommentsBadge();
+
+        const postCard = document.getElementById('commentPostCard');
+        const container = document.getElementById('commentsListContainer');
+
+        // 1. Post Box State (Signed in vs Guest)
+        if (postCard) {
+            if (currentUser) {
+                postCard.innerHTML = `
+                    <div class="comment-user-badge">
+                        <img src="${currentUser.photo}" style="width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #a855f7;">
+                        <span style="color: #ffffff; font-weight: 700; font-size: 0.95rem;">Commenting as: <span style="color: #38bdf8;">${currentUser.name}</span></span>
+                        ${currentUser.role === 'admin' ? '<span style="background: #ec4899; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: bold;">ADMIN</span>' : ''}
+                    </div>
+                    <form onsubmit="handlePostComment(event)">
+                        <div class="neon-input-group" style="margin-bottom: 12px;">
+                            <textarea id="commentTextInput" rows="3" placeholder="Apna comment ya review likhein..." required style="width: 100%; border-radius: 12px; resize: vertical;"></textarea>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
+                            <button type="submit" class="glow-action-btn" style="padding: 10px 24px;">
+                                <i class="fa-solid fa-paper-plane"></i> Post Comment
+                            </button>
+                        </div>
+                    </form>
+                `;
+            } else {
+                postCard.innerHTML = `
+                    <div style="text-align: center; padding: 18px 10px;">
+                        <div style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 10px;">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 style="font-family: 'Orbitron'; color: #ffffff; margin-bottom: 8px;">Comment Karne Ke Liye Sign In Zaroori Hai</h3>
+                        <p style="color: #94a3b8; font-size: 0.95rem; max-width: 520px; margin: 0 auto 18px auto;">
+                            Baghair Google Account ke comment nahi kiya ja sakta. Sign in karein taake aap ka <strong>Username</strong> aur <strong>Profile Avatar</strong> aap ke comment ke sath show ho sakein.
+                        </p>
+                        <button class="glow-action-btn" onclick="openModal('googleAuthModal')" style="padding: 12px 28px; font-size: 1rem;">
+                            <i class="fa-brands fa-google"></i> Sign In to Comment
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // 2. Comments List
+        if (container) {
+            if (commentsList.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 50px 20px; color: #94a3b8; background: rgba(22, 11, 48, 0.4); border-radius: 14px; border: 1px dashed rgba(168, 85, 247, 0.3);">
+                        <i class="fa-solid fa-comment-slash" style="font-size: 3rem; color: #a855f7; margin-bottom: 12px;"></i>
+                        <p style="font-size: 1.1rem; color: #cbd5e1;">Abhi tak koi comment nahi aya.</p>
+                        <p style="font-size: 0.9rem;">Sab se pehle comment aap karein!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render descending (latest first)
+            const sortedComments = [...commentsList].reverse();
+            container.innerHTML = sortedComments.map(c => {
+                const isAdminComment = c.role === 'admin';
+                const isMyComment = currentUser && currentUser.email && c.senderEmail && currentUser.email.toLowerCase() === c.senderEmail.toLowerCase();
+                const canDelete = currentUser && (currentUser.role === 'admin' || isMyComment);
+
+                return `
+                    <div class="comment-item-card">
+                        <img src="${c.avatar || 'https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(c.sender)}" alt="Avatar" class="comment-avatar">
+                        <div class="comment-content-wrap">
+                            <div class="comment-user-meta">
+                                <div class="comment-author-name">
+                                    <span>${c.sender}</span>
+                                    ${isAdminComment ? '<span style="background: linear-gradient(135deg, #ec4899, #f43f5e); color: white; padding: 2px 8px; border-radius: 8px; font-size: 0.72rem; font-weight: bold; letter-spacing: 0.5px;">👑 ADMIN</span>' : ''}
+                                    ${isMyComment && !isAdminComment ? '<span style="background: rgba(56, 189, 248, 0.25); color: #38bdf8; border: 1px solid #38bdf8; padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: bold;">YOU</span>' : ''}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span class="comment-time-stamp"><i class="fa-regular fa-clock"></i> ${c.date || ''} ${c.time || ''}</span>
+                                    ${canDelete ? `
+                                        <button onclick="deleteComment(${c.id})" title="Delete Comment" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.9rem; padding: 2px 6px; border-radius: 4px; transition: 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='none'">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            <div class="comment-text-body">${escapeHtml(c.text)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    function handlePostComment(e) {
+        e.preventDefault();
+        if (!currentUser) {
+            alert("Comment karne ke liye pehle Sign In karein!");
+            openModal('googleAuthModal');
+            return;
+        }
+
+        const input = document.getElementById('commentTextInput');
+        if (!input) return;
+        const text = input.value.trim();
+        if (!text) return;
+
+        const now = new Date();
+        const dateStr = now.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const newComment = {
+            id: Date.now(),
+            sender: currentUser.name,
+            senderEmail: currentUser.email,
+            role: currentUser.role,
+            avatar: currentUser.photo,
+            text: text,
+            date: dateStr,
+            time: timeStr
+        };
+
+        commentsList.push(newComment);
+        setStoredData('comments', commentsList);
+        input.value = '';
+        renderComments();
+        renderAdminTables();
+    }
+
+    function deleteComment(commentId) {
+        if (!confirm("Kya aap waqayi yeh comment delete karna chahte hain?")) return;
+
+        commentsList = commentsList.filter(c => c.id !== commentId);
+        setStoredData('comments', commentsList);
+        renderComments();
+        renderAdminTables();
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    /* ========================================================
        ADMIN CONTROL PANEL OPERATIONS
        ======================================================== */
     function openAdminPanel() {
@@ -2804,6 +3169,9 @@
 
         const msgBadge = document.getElementById('adminMsgBadge');
         if (msgBadge) msgBadge.textContent = chatMessages.length;
+
+        const commentsBadge = document.getElementById('adminCommentsBadge');
+        if (commentsBadge) commentsBadge.textContent = commentsList.length;
 
         // Inventory Table
         const tableWrap = document.getElementById('adminProductTableWrapper');
@@ -2907,6 +3275,47 @@
                 </div>
             `).join('');
         }
+
+        // Comments List in Admin
+        const commentsTable = document.getElementById('adminCommentsList');
+        if (commentsTable) {
+            if (commentsList.length === 0) {
+                commentsTable.innerHTML = `<p style="color: #94a3b8;">Koi comment mojood nahi hai.</p>`;
+            } else {
+                commentsTable.innerHTML = `
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; color: #f8fafc;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #a855f7; color: #c084fc;">
+                                <th style="padding: 10px;">User</th>
+                                <th style="padding: 10px;">Comment</th>
+                                <th style="padding: 10px;">Date & Time</th>
+                                <th style="padding: 10px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${[...commentsList].reverse().map(c => `
+                                <tr style="border-bottom: 1px solid rgba(168, 85, 247, 0.2);">
+                                    <td style="padding: 10px; display: flex; align-items: center; gap: 8px;">
+                                        <img src="${c.avatar}" style="width: 32px; height: 32px; border-radius: 50%;">
+                                        <div>
+                                            <div style="font-weight: 700; color: #ffffff;">${c.sender}</div>
+                                            <div style="font-size: 0.75rem; color: #94a3b8;">${c.senderEmail || ''}</div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 10px; color: #cbd5e1; max-width: 320px; word-break: break-word;">${escapeHtml(c.text)}</td>
+                                    <td style="padding: 10px; color: #94a3b8; font-size: 0.85rem;">${c.date || ''} ${c.time || ''}</td>
+                                    <td style="padding: 10px;">
+                                        <button onclick="deleteComment(${c.id})" style="background: #ef4444; border: none; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer;">
+                                            <i class="fa-solid fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+        }
     }
 
     /* Modal Controls */
@@ -2920,6 +3329,7 @@
     // Init App
     updateAuthUI();
     updateCartBadge();
+    updateCommentsBadge();
     renderProducts();
 
     // Fetch live global cloud database from all devices on startup
